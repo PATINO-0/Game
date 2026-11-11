@@ -1,42 +1,43 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Estilos de ejemplo de Vite; App no importa actualmente este archivo. */
+#root { /* Aplica estilos a #root. */
+  max-width: 1280px; /* Define max-width como 1280px. */
+  margin: 0 auto; /* Define margin como 0 auto. */
+  padding: 2rem; /* Define padding como 2rem. */
+  text-align: center; /* Define text-align como center. */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.logo { /* Aplica estilos a .logo. */
+  height: 6em; /* Define height como 6em. */
+  padding: 1.5em; /* Define padding como 1.5em. */
+  will-change: filter; /* Define will-change como filter. */
+  transition: filter 300ms; /* Define transition como filter 300ms. */
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.logo:hover { /* Aplica estilos a .logo:hover. */
+  filter: drop-shadow(0 0 2em #646cffaa); /* Define filter como drop-shadow(0 0 2em #646cffaa). */
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.logo.react:hover { /* Aplica estilos a .logo.react:hover. */
+  filter: drop-shadow(0 0 2em #61dafbaa); /* Define filter como drop-shadow(0 0 2em #61dafbaa). */
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+  from { /* Aplica estilos a from. */
+    transform: rotate(0deg); /* Define transform como rotate(0deg). */
   }
-  to {
-    transform: rotate(360deg);
+  to { /* Aplica estilos a to. */
+    transform: rotate(360deg); /* Define transform como rotate(360deg). */
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  a:nth-of-type(2) .logo { /* Aplica estilos a a:nth-of-type(2) .logo. */
+    animation: logo-spin infinite 20s linear; /* Define animation como logo-spin infinite 20s linear. */
   }
 }
 
-.card {
-  padding: 2em;
+.card { /* Aplica estilos a .card. */
+  padding: 2em; /* Define padding como 2em. */
 }
 
-.read-the-docs {
-  color: #888;
+.read-the-docs { /* Aplica estilos a .read-the-docs. */
+  color: #888; /* Define color como #888. */
 }

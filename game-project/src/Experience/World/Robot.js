@@ -1,250 +1,128 @@
-import * as THREE from 'three'
-import * as CANNON from 'cannon-es'
-import Sound from './Sound.js'
+/**
+ * Administra el personaje jugable, sus animaciones, sonidos, controles y controlador físico.
+ */
+import * as THREE from 'three' // [doc] Importa THREE desde three.
+import Sound from './Sound.js' // [doc] Importa Sound desde ./Sound.js.
+import CharacterMotor from '../Utils/CharacterMotor.js' // [doc] Importa CharacterMotor desde ../Utils/CharacterMotor.js.
 
-export default class Robot {
-    constructor(experience) {
-        this.experience = experience
-        this.scene = this.experience.scene
-        this.resources = this.experience.resources
-        this.time = this.experience.time
-        this.physics = this.experience.physics
-        this.keyboard = this.experience.keyboard
-        this.debug = this.experience.debug
-        this.points = 0
+export default class Robot { // [doc] Define la clase Robot.
+  constructor(experience) { // [doc] Inicializa dependencias, estado y elementos necesarios de la instancia.
+    this.experience = experience // [doc] Asigna experience en this.experience.
+    this.scene = experience.scene // [doc] Asigna experience.scene en this.scene.
+    this.resources = experience.resources // [doc] Asigna experience.resources en this.resources.
+    this.physics = experience.physics // [doc] Asigna experience.physics en this.physics.
+    this.keyboard = experience.keyboard // [doc] Asigna experience.keyboard en this.keyboard.
+    this.points = 0 // [doc] Asigna 0 en this.points.
+    this.isDead = false // [doc] Asigna false en this.isDead.
+    this.controlsEnabled = true // [doc] Asigna true en this.controlsEnabled.
+    this.jumpWasPressed = false // [doc] Asigna false en this.jumpWasPressed.
+    this.spawnPoint = { x: -17, y: 1.5, z: -67 } // [doc] Asigna el objeto de configuración en this.spawnPoint.
+    this.setModel() // [doc] Ejecuta this.setModel.
+    this.walkSound = new Sound('/sounds/robot/walking.mp3', { loop: true, volume: 0.5 }) // [doc] Asigna la instancia de Sound en this.walkSound.
+    this.jumpSound = new Sound('/sounds/robot/jump.mp3', { volume: 0.8 }) // [doc] Asigna la instancia de Sound en this.jumpSound.
+    this.setPhysics() // [doc] Ejecuta this.setPhysics.
+    this.setAnimation() // [doc] Ejecuta this.setAnimation.
+  }
 
-        this.setModel()
-        this.setSounds()
-        this.setPhysics()
-        this.setAnimation()
+  setModel() { // [doc] Prepara modelo, escala, visibilidad y posición visual.
+    this.model = this.resources.items.robotModel.scene // [doc] Asigna this.resources.items.robotModel.scene en this.model.
+    this.model.scale.setScalar(0.3) // [doc] Ejecuta this.model.scale.setScalar.
+    this.group = new THREE.Group() // [doc] Asigna la instancia de THREE.Group en this.group.
+    this.group.add(this.model) // [doc] Añade un elemento o valor a this.group.
+    this.scene.add(this.group) // [doc] Añade un elemento o valor a this.scene.
+    const box = new THREE.Box3().setFromObject(this.model) // [doc] Guarda new THREE.Box3().setFromObject(this.model) en box.
+    this.model.position.y -= box.min.y + 0.4 // [doc] Actualiza box.min.y + 0.4 en this.model.position.y.
+    this.model.traverse(child => { if (child.isMesh) child.castShadow = true }) // [doc] Comprueba child.isMesh.
+  }
+
+  setPhysics() { // [doc] Crea el controlador físico del personaje.
+    this.motor = new CharacterMotor(this.physics, { // [doc] Asigna la instancia de CharacterMotor en this.motor.
+      position: this.physics.getSpawnPosition(this.spawnPoint), maxSpeed: 6 // [doc] Configura position con this.physics.getSpawnPosition(this.spawnPoint).
+    })
+    this.body = this.motor.body // [doc] Asigna this.motor.body en this.body.
+  }
+
+  setAnimation() { // [doc] Selecciona clips y configura sus mezclas y transiciones.
+    const mixer = new THREE.AnimationMixer(this.model) // [doc] Crea mixer como THREE.AnimationMixer.
+    const clips = this.resources.items.robotModel.animations // [doc] Guarda this.resources.items.robotModel.animations en clips.
+    const clipFor = name => clips.find(clip => clip.name.split('|').pop().toLowerCase() === name.toLowerCase()) || clips[0] // [doc] Define la función clipFor.
+    const actions = { // [doc] Guarda el objeto de configuración en actions.
+      idle: mixer.clipAction(clipFor('Idle')), // [doc] Configura idle con mixer.clipAction(clipFor('Idle')).
+      walking: mixer.clipAction(clipFor('Walk')), // [doc] Configura walking con mixer.clipAction(clipFor('Walk')).
+      jump: mixer.clipAction(clipFor('Jump')), // [doc] Configura jump con mixer.clipAction(clipFor('Jump')).
+      death: mixer.clipAction(clipFor('Death')), // [doc] Configura death con mixer.clipAction(clipFor('Death')).
+      dance: mixer.clipAction(clipFor('Yes')) // [doc] Configura dance con mixer.clipAction(clipFor('Yes')).
     }
+    actions.jump.setLoop(THREE.LoopOnce, 1) // [doc] Ejecuta actions.jump.setLoop.
+    actions.jump.clampWhenFinished = true // [doc] Asigna true en actions.jump.clampWhenFinished.
+    actions.death.setLoop(THREE.LoopOnce, 1) // [doc] Ejecuta actions.death.setLoop.
+    actions.death.clampWhenFinished = true // [doc] Asigna true en actions.death.clampWhenFinished.
+    actions.current = actions.idle // [doc] Asigna actions.idle en actions.current.
+    actions.current.play() // [doc] Inicia la reproducción de actions.current.
+    this.animation = { mixer, actions, play: name => { // [doc] Asigna el objeto de configuración en this.animation.
+      const next = actions[name] // [doc] Guarda actions[name] en next.
+      if (!next || next === actions.current) return // [doc] Comprueba !next || next === actions.current.
+      next.reset().play().crossFadeFrom(actions.current, 0.2) // [doc] Ejecuta next.reset().play().crossFadeFrom.
+      actions.current = next // [doc] Asigna next en actions.current.
+      if (name === 'walking') this.walkSound.play() // [doc] Comprueba name === 'walking'.
+      else this.walkSound.stop() // [doc] Detiene la acción de this.walkSound.
+      if (name === 'jump') this.jumpSound.play() // [doc] Comprueba name === 'jump'.
+    } }
+  }
 
-    setModel() {
-        this.model = this.resources.items.robotModel.scene
-        this.model.scale.set(0.3, 0.3, 0.3)
-        this.model.position.set(0, -0.1, 0) // Centrar respecto al cuerpo físico
+  _ensurePhysics() { if (!this.body) this.setPhysics() } // [doc] Comprueba !this.body.
 
-        this.group = new THREE.Group()
-        this.group.add(this.model)
-        this.scene.add(this.group)
-
-        this.model.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-                child.castShadow = true
-            }
-        })
+  update(delta = this.experience.time.delta * 0.001) { // [doc] Actualiza el estado correspondiente durante un cuadro o paso de simulación.
+    this.animation.mixer.update(Math.min(delta, 0.1)) // [doc] Actualiza el estado de this.animation.mixer.
+    if (this.isDead || !this.controlsEnabled || !this.body) { this.motor?.stop(); return } // [doc] Comprueba this.isDead || !this.controlsEnabled || !this.body.
+    const keys = this.keyboard.getState() // [doc] Guarda this.keyboard.getState() en keys.
+    if (this.experience.world?.gameFinished || this.experience.world?.defeatTriggered) { // [doc] Comprueba this.experience.world?.gameFinished || this.experience.world?.….
+      this.motor.stop() // [doc] Detiene la acción de this.motor.
+      return // [doc] Termina esta ejecución de la función.
     }
+    const turn = Number(keys.left) - Number(keys.right) // [doc] Guarda Number(keys.left) - Number(keys.right) en turn.
+    this.group.rotation.y += turn * 2.5 * Math.min(delta, 0.1) // [doc] Acumula turn * 2.5 * Math.min(delta, 0.1) en this.group.rotation.y.
+    const movement = Number(keys.up) - Number(keys.down) // [doc] Guarda Number(keys.up) - Number(keys.down) en movement.
+    const direction = new THREE.Vector3(0, 0, movement).applyQuaternion(this.group.quaternion) // [doc] Guarda new THREE.Vector3(0, 0, movement).applyQuaternion(this.group.q… en direction.
+    if (this.externalMove && this.experience.renderer.instance.xr.isPresenting) { // [doc] Comprueba this.externalMove && this.experience.renderer.instance.xr.isPr….
+      this.motor.move(this.externalMove.direction, this.externalMove.speed) // [doc] Ejecuta this.motor.move.
+      this.group.rotation.y = Math.atan2(this.externalMove.direction.x, this.externalMove.direction.z) // [doc] Asigna Math.atan2(this.externalMove.direction.x, this.externalMove.di… en this.group.rotation.y.
+      this.externalMove = null // [doc] Asigna null en this.externalMove.
+    } else this.motor.move(direction, movement ? 6 : 0) // [doc] Ejecuta this.motor.move.
 
-    setPhysics() {
-        //const shape = new CANNON.Box(new CANNON.Vec3(0.3, 0.5, 0.3))
-        const shape = new CANNON.Sphere(0.4)
+    if (keys.space && !this.jumpWasPressed) this.motor.jump() // [doc] Comprueba keys.space && !this.jumpWasPressed.
+    this.jumpWasPressed = keys.space // [doc] Asigna keys.space en this.jumpWasPressed.
+    const jumping = this.motor.jumpQueued || this.motor.jumpCooldown > 0 // [doc] Guarda this.motor.jumpQueued || this.motor.jumpCooldown > 0 en jumping.
+    this.animation.play(jumping ? 'jump' : this.motor.speed > 0 ? 'walking' : 'idle') // [doc] Inicia la reproducción de this.animation.
+    if (this.body.position.y < -25) this.experience.world.resetRobotPosition(this.spawnPoint) // [doc] Comprueba this.body.position.y < -25.
+  }
 
-        this.body = new CANNON.Body({
-            mass: 2,
-            shape: shape,
-            //position: new CANNON.Vec3(4, 1, 0), // Apenas sobre el piso real (que termina en y=0)
-            position: new CANNON.Vec3(0, 1.2, 0),
-            linearDamping: 0.05,
-            angularDamping: 0.9
-        })
+  syncVisual() { if (this.body) this.group.position.copy(this.body.position) } // [doc] Comprueba this.body.
 
-        this.body.angularFactor.set(0, 1, 0)
+  moveInDirection(direction, speed = 3.5) { // [doc] Guarda una intención externa de movimiento para VR.
+    if (!this.controlsEnabled || this.isDead) return // [doc] Comprueba !this.controlsEnabled || this.isDead.
+    this.externalMove = { direction: direction.clone(), speed } // [doc] Asigna el objeto de configuración en this.externalMove.
+  }
 
-        // Estabilización inicial
-        this.body.velocity.setZero()
-        this.body.angularVelocity.setZero()
-        this.body.sleep()
-        this.body.material = this.physics.robotMaterial
-        //console.log(' Robot material:', this.body.material.name)
+  die() { // [doc] Desactiva controles, reproduce muerte y retira el cuerpo físico.
+    if (this.isDead) return // [doc] Comprueba this.isDead.
+    this.isDead = true // [doc] Asigna true en this.isDead.
+    this.controlsEnabled = false // [doc] Asigna false en this.controlsEnabled.
+    this.animation.play('death') // [doc] Inicia la reproducción de this.animation.
+    this.walkSound.stop() // [doc] Detiene la acción de this.walkSound.
+    this.motor?.destroy() // [doc] Destruye la instancia this.motor.
+    this.motor = null // [doc] Asigna null en this.motor.
+    this.body = null // [doc] Asigna null en this.body.
+  }
 
-
-        this.physics.world.addBody(this.body)
-        //console.log(' Posición inicial del robot:', this.body.position)
-        // Activar cuerpo después de que el mundo haya dado al menos un paso de simulación
-        setTimeout(() => {
-            this.body.wakeUp()
-        }, 100) // 100 ms ≈ 6 pasos de simulación si step = 1/60
-    }
-
-
-    setSounds() {
-        this.walkSound = new Sound('/sounds/robot/walking.mp3', { loop: true, volume: 0.5 })
-        this.jumpSound = new Sound('/sounds/robot/jump.mp3', { volume: 0.8 })
-    }
-
-    setAnimation() {
-        this.animation = {}
-        this.animation.mixer = new THREE.AnimationMixer(this.model)
-
-        this.animation.actions = {}
-        this.animation.actions.dance = this.animation.mixer.clipAction(this.resources.items.robotModel.animations[0])
-        this.animation.actions.death = this.animation.mixer.clipAction(this.resources.items.robotModel.animations[1])
-        this.animation.actions.idle = this.animation.mixer.clipAction(this.resources.items.robotModel.animations[2])
-        this.animation.actions.jump = this.animation.mixer.clipAction(this.resources.items.robotModel.animations[3])
-        this.animation.actions.walking = this.animation.mixer.clipAction(this.resources.items.robotModel.animations[10])
-
-        this.animation.actions.current = this.animation.actions.idle
-        this.animation.actions.current.play()
-
-        this.animation.actions.jump.setLoop(THREE.LoopOnce)
-        this.animation.actions.jump.clampWhenFinished = true
-        this.animation.actions.jump.onFinished = () => {
-            this.animation.play('idle')
-        }
-
-        this.animation.play = (name) => {
-            const newAction = this.animation.actions[name]
-            const oldAction = this.animation.actions.current
-
-            newAction.reset()
-            newAction.play()
-            newAction.crossFadeFrom(oldAction, 0.3)
-            this.animation.actions.current = newAction
-
-            if (name === 'walking') {
-                this.walkSound.play()
-            } else {
-                this.walkSound.stop()
-            }
-
-            if (name === 'jump') {
-                this.jumpSound.play()
-            }
-        }
-    }
-
-    update() {
-        if (this.animation.actions.current === this.animation.actions.death) return
-        const delta = this.time.delta * 0.001
-        this.animation.mixer.update(delta)
-
-        const keys = this.keyboard.getState()
-        const moveForce = 80
-        const turnSpeed = 2.5
-        let isMoving = false
-
-        // Limitar velocidad si es demasiado alta
-        const maxSpeed = 15
-        this.body.velocity.x = Math.max(Math.min(this.body.velocity.x, maxSpeed), -maxSpeed)
-        this.body.velocity.z = Math.max(Math.min(this.body.velocity.z, maxSpeed), -maxSpeed)
-
-
-        // Salto
-        // Dirección hacia adelante, independientemente del salto o movimiento
-        const forward = new THREE.Vector3(0, 0, 1).applyQuaternion(this.group.quaternion)
-
-        // Salto
-        if (keys.space && this.body.position.y <= 0.51) {
-            this.body.applyImpulse(new CANNON.Vec3(forward.x * 0.5, 3, forward.z * 0.5))
-            this.animation.play('jump')
-            return
-        }
-        //No permitir que el robot salga del escenario
-        if (this.body.position.y > 10) {
-            console.warn(' Robot fuera del escenario. Reubicando...')
-            this.body.position.set(0, 1.2, 0)
-            this.body.velocity.set(0, 0, 0)
-        }
-
-
-        // Movimiento hacia adelante
-        if (keys.up) {
-            const forward = new THREE.Vector3(0, 0, 1)
-            forward.applyQuaternion(this.group.quaternion)
-            this.body.applyForce(
-                new CANNON.Vec3(forward.x * moveForce, 0, forward.z * moveForce),
-                this.body.position
-            )
-            isMoving = true
-        }
-
-        // Movimiento hacia atrás
-        if (keys.down) {
-            const backward = new THREE.Vector3(0, 0, -1)
-            backward.applyQuaternion(this.group.quaternion)
-            this.body.applyForce(
-                new CANNON.Vec3(backward.x * moveForce, 0, backward.z * moveForce),
-                this.body.position
-            )
-            isMoving = true
-        }
-
-        // Rotación
-        if (keys.left) {
-            this.group.rotation.y += turnSpeed * delta
-            this.body.quaternion.setFromEuler(0, this.group.rotation.y, 0)
-        }
-        if (keys.right) {
-            this.group.rotation.y -= turnSpeed * delta
-            this.body.quaternion.setFromEuler(0, this.group.rotation.y, 0)
-        }
-
-
-        // Animaciones según movimiento
-        if (isMoving) {
-            if (this.animation.actions.current !== this.animation.actions.walking) {
-                this.animation.play('walking')
-            }
-        } else {
-            if (this.animation.actions.current !== this.animation.actions.idle) {
-                this.animation.play('idle')
-            }
-        }
-
-        // Sincronización física → visual
-        this.group.position.copy(this.body.position)
-
-    }
-
-    // Método para mover el robot desde el exterior VR
-    moveInDirection(dir, speed) {
-        if (!window.userInteracted || !this.experience.renderer.instance.xr.isPresenting) {
-            return
-        }
-
-        // Si hay controles móviles activos
-        const mobile = window.experience?.mobileControls
-        if (mobile?.intensity > 0) {
-            const dir2D = mobile.directionVector
-            const dir3D = new THREE.Vector3(dir2D.x, 0, dir2D.y).normalize()
-
-            const adjustedSpeed = 250 * mobile.intensity // velocidad más fluida
-            const force = new CANNON.Vec3(dir3D.x * adjustedSpeed, 0, dir3D.z * adjustedSpeed)
-
-            this.body.applyForce(force, this.body.position)
-
-            if (this.animation.actions.current !== this.animation.actions.walking) {
-                this.animation.play('walking')
-            }
-
-            // Rotar suavemente en dirección de avance
-            const angle = Math.atan2(dir3D.x, dir3D.z)
-            this.group.rotation.y = angle
-            this.body.quaternion.setFromEuler(0, this.group.rotation.y, 0)
-        }
-    }
-    die() {
-        if (this.animation.actions.current !== this.animation.actions.death) {
-            this.animation.actions.current.fadeOut(0.2)
-            this.animation.actions.death.reset().fadeIn(0.2).play()
-            this.animation.actions.current = this.animation.actions.death
-
-            this.walkSound.stop()
-
-            // 💥 Eliminar cuerpo del mundo para evitar errores
-            if (this.physics.world.bodies.includes(this.body)) {
-                this.physics.world.removeBody(this.body)
-            }
-            this.body = null  // prevenir referencias rotas
-
-            // Ajustes visuales (opcional)
-            this.group.position.y -= 0.5
-            this.group.rotation.x = -Math.PI / 2
-
-            console.log(' Robot ha muerto')
-        }
-    }
-
-
-
+  revive() { // [doc] Restaura controles, posición de aparición y animación de reposo.
+    this._ensurePhysics() // [doc] Ejecuta this._ensurePhysics.
+    this.isDead = false // [doc] Asigna false en this.isDead.
+    this.controlsEnabled = true // [doc] Asigna true en this.controlsEnabled.
+    this.jumpWasPressed = false // [doc] Asigna false en this.jumpWasPressed.
+    this.group.rotation.set(0, 0, 0) // [doc] Establece el valor en this.group.rotation.
+    this.motor.teleport(this.physics.getSpawnPosition(this.spawnPoint)) // [doc] Ejecuta this.motor.teleport.
+    this.animation.play('idle') // [doc] Inicia la reproducción de this.animation.
+    this.syncVisual() // [doc] Ejecuta this.syncVisual.
+  }
 }

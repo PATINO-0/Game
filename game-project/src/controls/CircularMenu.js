@@ -1,260 +1,104 @@
-import gsap from 'gsap'
+/**
+ * Construye la rueda de ajustes, selector de cámaras y HUD de tiempo, jugadores y puntos.
+ */
+export default class CircularMenu { // [doc] Define la clase CircularMenu.
+  constructor({ container, vrIntegration, onAudioToggle, onCameraChange, onFullscreen, onCancelGame }) { // [doc] Inicializa dependencias, estado y elementos necesarios de la instancia.
+    this.container = container // [doc] Asigna container en this.container.
+    this.isOpen = false // [doc] Asigna false en this.isOpen.
+    this.actionButtons = [] // [doc] Asigna el arreglo de datos en this.actionButtons.
+    this.cameraButtons = new Map() // [doc] Asigna la instancia de Map en this.cameraButtons.
+    this.toggleButton = document.createElement('button') // [doc] Asigna document.createElement('button') en this.toggleButton.
+    this.toggleButton.textContent = '⚙' // [doc] Asigna "⚙" en this.toggleButton.textContent.
+    this.toggleButton.setAttribute('aria-label', 'Ajustes') // [doc] Asigna un atributo en this.toggleButton.
+    this.toggleButton.setAttribute('aria-expanded', 'false') // [doc] Asigna un atributo en this.toggleButton.
+    this.toggleButton.style.cssText = 'position:fixed;top:80px;right:20px;width:48px;height:48px;border-radius:50%;border:1px solid #00fff780;background:#123d48;color:#b9ffff;font-size:25px;cursor:pointer;z-index:9999;display:none' // [doc] Asigna "position:fixed;top:80px;right:20px;width:48px;height:48px;border-radius:50%;border:1px solid #00fff780;background:#123d48;color:#b9ffff;font-size:25px;cursor:pointer;z-index:9999;display:none" en this.toggleButton.style.cssText.
+    container.appendChild(this.toggleButton) // [doc] Inserta un elemento dentro de container.
+    this.toggleButton.addEventListener('click', () => this.toggleMenu()) // [doc] Registra un evento en this.toggleButton.
 
-export default class CircularMenu {
-  constructor({ container, vrIntegration, onAudioToggle, onWalkMode, onFullscreen, onCancelGame }) {
-    this.container = container
-    this.vrIntegration = vrIntegration
-    this.isOpen = false
-    this.actionButtons = []
-
-    // Estilo base de los botones
-    const baseStyle = `
-      position: fixed;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: rgba(0, 255, 247, 0.12);
-      color: #00fff7;
-      font-size: 20px;
-      border: 1px solid rgba(0, 255, 247, 0.3);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 10px #00fff7;
-      backdrop-filter: blur(4px);
-      z-index: 9999;
-      transition: all 0.3s ease;
-    `
-
-    const hoverStyle = `
-      background: rgba(0, 255, 247, 0.25);
-      box-shadow: 0 0 15px #00fff7, 0 0 30px #00fff7;
-      transform: scale(1.1);
-    `
-
-    // Botón flotante principal ⚙️
-    this.toggleButton = document.createElement('button')
-    this.toggleButton.innerText = '⚙️'
-    this.toggleButton.title = 'Mostrar menú'
-    this.toggleButton.setAttribute('aria-label', 'Mostrar menú')
-    this.toggleButton.style.cssText = baseStyle + 'top: 80px; right: 20px;'
-    container.appendChild(this.toggleButton)
-    // Ocultar inicialmente
-    this.toggleButton.style.display = 'none'
-    this.toggleButton.addEventListener('click', () => this.toggleMenu())
-
-    // Lista de botones de acción
-    const actions = [
-      { icon: '🔊', title: 'Audio', onClick: onAudioToggle },
-      { icon: '🚶', title: 'Modo Caminata', onClick: onWalkMode },
-      { icon: '🖥️', title: 'Pantalla Completa', onClick: onFullscreen },
-      { icon: '🥽', title: 'Modo VR', onClick: () => this.vrIntegration.toggleVR() },
-      { icon: '👨‍💻', title: 'Acerca de', onClick: () => this.showAboutModal() },
-      { icon: '❌', title: 'Cancelar Juego', onClick: onCancelGame }
-    ]
-
-    actions.forEach((action, index) => {
-      const btn = document.createElement('button')
-      btn.innerText = action.icon
-      btn.title = action.title
-      btn.setAttribute('aria-label', action.title)
-
-      Object.assign(btn.style, {
-        position: 'fixed',
-        width: '48px',
-        height: '48px',
-        borderRadius: '50%',
-        background: 'rgba(0, 255, 247, 0.12)',
-        color: '#00fff7',
-        fontSize: '20px',
-        border: '1px solid rgba(0, 255, 247, 0.3)',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: '0 0 10px #00fff7',
-        backdropFilter: 'blur(4px)',
-        zIndex: 9999,
-        top: `${140 + index * 60}px`,
-        right: '20px',
-        opacity: '0',
-        pointerEvents: 'none'
-      })
-
-      btn.addEventListener('click', () => {
-        action.onClick()
-        this.toggleMenu()
-      })
-
-      btn.addEventListener('mouseenter', () => btn.style.cssText += hoverStyle)
-      btn.addEventListener('mouseleave', () => btn.style.cssText = btn.style.cssText.replace(hoverStyle, ''))
-
-      this.container.appendChild(btn)
-      this.actionButtons.push(btn)
-    })
-
-    // HUD: Tiempo
-    this.timer = document.createElement('div')
-    this.timer.id = 'hud-timer'
-    this.timer.innerText = '⏱ 0s'
-    Object.assign(this.timer.style, {
-      position: 'fixed',
-      top: '16px',
-      left: '70px',
-      fontSize: '16px',
-      fontWeight: 'bold',
-      background: 'rgba(0,0,0,0.6)',
-      color: 'white',
-      padding: '6px 12px',
-      borderRadius: '8px',
-      zIndex: 9999,
-      fontFamily: 'monospace',
-      pointerEvents: 'none'
-    })
-    document.body.appendChild(this.timer)
-
-    // HUD: Puntos
-    this.status = document.createElement('div')
-    this.status.id = 'hud-points'
-    this.status.innerText = '🎖️ Puntos: 0'
-    Object.assign(this.status.style, {
-      position: 'fixed',
-      top: '16px',
-      right: '20px',
-      fontSize: '16px',
-      fontWeight: 'bold',
-      background: 'rgba(0,0,0,0.6)',
-      color: 'white',
-      padding: '6px 12px',
-      borderRadius: '8px',
-      zIndex: 9999,
-      fontFamily: 'monospace',
-      pointerEvents: 'none'
-    })
-    document.body.appendChild(this.status)
-
-    // HUD: Jugadores
-
-    this.playersLabel = document.createElement('div')
-    this.playersLabel.id = 'hud-players'
-    this.playersLabel.innerText = '👥 Jugadores: 1'
-    Object.assign(this.playersLabel.style, {
-      position: 'fixed',
-      top: '16px',
-      left: '140px',
-      fontSize: '16px',
-      fontWeight: 'bold',
-      background: 'rgba(0,0,0,0.6)',
-      color: 'white',
-      padding: '6px 12px',
-      borderRadius: '8px',
-      zIndex: 9999,
-      fontFamily: 'monospace',
-      pointerEvents: 'none'
-    })
-    document.body.appendChild(this.playersLabel)
-
-  }
-
-  //Mostrar modal acerca de
-  showAboutModal() {
-    if (this.aboutContainer) return // evita duplicados
-
-    this.aboutContainer = document.createElement('div')
-    Object.assign(this.aboutContainer.style, {
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      background: 'rgba(0, 0, 0, 0.95)',
-      padding: '20px',
-      borderRadius: '12px',
-      color: '#fff',
-      zIndex: 10000,
-      textAlign: 'center',
-      fontFamily: 'sans-serif',
-      maxWidth: '300px',
-      boxShadow: '0 0 20px #00fff7'
-    })
-
-    this.aboutContainer.innerHTML = `
-          <h2 style="margin-bottom: 10px;">👨‍💻 Desarrollador</h2>
-          <p style="margin: 0;">Gustavo Sánchez Rodríguez</p>
-          <p style="margin: 0; font-size: 14px;">Universidad Cooperativa de Colombia</p>
-          <p style="margin: 10px 0 0; font-size: 13px;">Proyecto interactivo educativo con Three.js</p>
-          <p style="margin: 10px 0 0; font-size: 13px;">guswillsan@gmail.com</p>
-          <button style="
-            margin-top: 12px;
-            padding: 6px 14px;
-            font-size: 14px;
-            background: #00fff7;
-            color: black;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-          ">Cerrar</button>
-        `
-
-    const closeBtn = this.aboutContainer.querySelector('button')
-    closeBtn.onclick = () => {
-      this.aboutContainer.remove()
-      this.aboutContainer = null
+    this.panel = document.createElement('section') // [doc] Asigna document.createElement('section') en this.panel.
+    this.panel.setAttribute('aria-label', 'Ajustes del juego') // [doc] Asigna un atributo en this.panel.
+    this.panel.hidden = true // [doc] Asigna true en this.panel.hidden.
+    this.panel.style.cssText = 'position:fixed;top:138px;right:20px;width:240px;max-height:calc(100vh - 158px);overflow:auto;padding:18px;box-sizing:border-box;border-radius:16px;border:1px solid #65e3e866;background:#102c36f5;color:#e5fcff;font:14px system-ui;box-shadow:0 8px 28px #0006;z-index:10000' // [doc] Asigna "position:fixed;top:138px;right:20px;width:240px;max-height:calc(100vh - 158px);overflow:auto;padding:18px;box-sizing:border-box;border-radius:16px;border:1px solid #65e3e866;background:#102c36f5;color:#e5fcff;font:14px system-ui;box-shadow:0 8px 28px #0006;z-index:10000" en this.panel.style.cssText.
+    const title = document.createElement('strong') // [doc] Guarda document.createElement('strong') en title.
+    title.textContent = 'Ajustes' // [doc] Asigna "Ajustes" en title.textContent.
+    title.style.cssText = 'display:block;font-size:18px;margin-bottom:14px' // [doc] Asigna "display:block;font-size:18px;margin-bottom:14px" en title.style.cssText.
+    this.panel.appendChild(title) // [doc] Inserta un elemento dentro de this.panel.
+    const cameraLabel = document.createElement('div') // [doc] Guarda document.createElement('div') en cameraLabel.
+    cameraLabel.textContent = 'Cámara' // [doc] Asigna "Cámara" en cameraLabel.textContent.
+    cameraLabel.style.cssText = 'margin-bottom:8px;color:#a5d1d8' // [doc] Asigna "margin-bottom:8px;color:#a5d1d8" en cameraLabel.style.cssText.
+    this.panel.appendChild(cameraLabel) // [doc] Inserta un elemento dentro de this.panel.
+    const cameraGroup = document.createElement('div') // [doc] Guarda document.createElement('div') en cameraGroup.
+    cameraGroup.setAttribute('role', 'group') // [doc] Asigna un atributo en cameraGroup.
+    cameraGroup.setAttribute('aria-label', 'Tipo de cámara') // [doc] Asigna un atributo en cameraGroup.
+    this.panel.appendChild(cameraGroup) // [doc] Inserta un elemento dentro de this.panel.
+    for (const [mode, label] of [['drone', 'Dron'], ['thirdPerson', 'Tercera persona'], ['firstPerson', 'Primera persona']]) { // [doc] Recorre los elementos de el arreglo de datos.
+      const button = this.makeButton(label, () => { onCameraChange(mode); this.setCameraMode(mode) }, cameraGroup) // [doc] Guarda this.makeButton(label, () => { onCameraChange(mode); this.setC… en button.
+      button.setAttribute('aria-pressed', 'false') // [doc] Asigna un atributo en button.
+      this.cameraButtons.set(mode, button) // [doc] Establece el valor en this.cameraButtons.
     }
+    this.cameraHelp = document.createElement('p') // [doc] Asigna document.createElement('p') en this.cameraHelp.
+    this.cameraHelp.style.cssText = 'font-size:12px;line-height:1.5;color:#a5d1d8;margin:10px 0 16px' // [doc] Asigna "font-size:12px;line-height:1.5;color:#a5d1d8;margin:10px 0 16px" en this.cameraHelp.style.cssText.
+    this.panel.appendChild(this.cameraHelp) // [doc] Inserta un elemento dentro de this.panel.
+    this.makeButton('Audio', onAudioToggle) // [doc] Ejecuta this.makeButton.
+    this.makeButton('Pantalla completa', () => { onFullscreen(); this.toggleMenu(false) }) // [doc] Ejecuta this.makeButton.
+    this.makeButton('Realidad virtual', () => { vrIntegration.toggleVR(); this.toggleMenu(false) }) // [doc] Ejecuta this.makeButton.
+    this.makeButton('Cancelar partida', () => { onCancelGame(); this.toggleMenu(false) }) // [doc] Ejecuta this.makeButton.
+    container.appendChild(this.panel) // [doc] Inserta un elemento dentro de container.
+    this.setCameraMode('thirdPerson') // [doc] Ejecuta this.setCameraMode.
 
-    document.body.appendChild(this.aboutContainer)
+    this.timer = this.makeHUD('hud-timer', '⏱ 0s', 'left:20px') // [doc] Asigna this.makeHUD('hud-timer', '⏱ 0s', 'left:20px') en this.timer.
+    this.playersLabel = this.makeHUD('hud-players', 'Jugadores: 1', 'left:108px') // [doc] Asigna this.makeHUD('hud-players', 'Jugadores: 1', 'left:108px') en this.playersLabel.
+    this.status = this.makeHUD('hud-points', 'Puntos: 0', 'right:20px') // [doc] Asigna this.makeHUD('hud-points', 'Puntos: 0', 'right:20px') en this.status.
   }
 
-
-
-
-  toggleMenu() {
-    this.isOpen = !this.isOpen
-
-    this.actionButtons.forEach((btn, index) => {
-      const delay = index * 0.05
-      if (this.isOpen) {
-        gsap.to(btn, {
-          opacity: 1,
-          y: 0,
-          pointerEvents: 'auto',
-          delay,
-          duration: 0.3,
-          ease: 'power2.out'
-        })
-      } else {
-        gsap.to(btn, {
-          opacity: 0,
-          y: -10,
-          pointerEvents: 'none',
-          delay,
-          duration: 0.2,
-          ease: 'power2.in'
-        })
-      }
-    })
+  makeButton(label, onClick, parent = this.panel) { // [doc] Crea un botón accesible y conecta su acción.
+    const button = document.createElement('button') // [doc] Guarda document.createElement('button') en button.
+    button.textContent = label // [doc] Asigna label en button.textContent.
+    button.style.cssText = 'display:block;width:100%;text-align:left;background:#ffffff0a;color:#d9faff;border:1px solid #ffffff26;border-radius:8px;padding:9px 12px;margin:5px 0;cursor:pointer;font:inherit' // [doc] Asigna "display:block;width:100%;text-align:left;background:#ffffff0a;color:#d9faff;border:1px solid #ffffff26;border-radius:8px;padding:9px 12px;margin:5px 0;cursor:pointer;font:inherit" en button.style.cssText.
+    button.addEventListener('click', onClick) // [doc] Registra un evento en button.
+    parent.appendChild(button) // [doc] Inserta un elemento dentro de parent.
+    this.actionButtons.push(button) // [doc] Añade datos al final de this.actionButtons.
+    return button // [doc] Devuelve button.
   }
 
-  setStatus(text) {
-    if (this.status) this.status.innerText = text
+  makeHUD(id, text, position) { // [doc] Crea un indicador fijo de la interfaz.
+    const element = document.createElement('div') // [doc] Guarda document.createElement('div') en element.
+    element.id = id // [doc] Asigna id en element.id.
+    element.textContent = text // [doc] Asigna text en element.textContent.
+    element.style.cssText = 'position:fixed;top:16px;' + position + ';padding:6px 12px;border-radius:8px;background:#102c36df;color:white;font:bold 14px monospace;pointer-events:none;z-index:9999' // [doc] Asigna 'position:fixed;top:16px;' + position + ';padding:6px 12px;bor… en element.style.cssText.
+    this.container.appendChild(element) // [doc] Inserta un elemento dentro de this.container.
+    return element // [doc] Devuelve element.
   }
 
-  setTimer(seconds) {
-    if (this.timer) this.timer.innerText = `⏱ ${seconds}s`
-  }
-
-  //Contador jugadores
-  setPlayerCount(count) {
-    if (this.playersLabel) {
-      this.playersLabel.innerText = `👥 Jugadores: ${count}`
+  setCameraMode(mode) { // [doc] Marca el botón de cámara activo y muestra sus controles.
+    for (const [key, button] of this.cameraButtons) { // [doc] Recorre los elementos de this.cameraButtons.
+      const selected = key === mode // [doc] Guarda key === mode en selected.
+      button.setAttribute('aria-pressed', String(selected)) // [doc] Asigna un atributo en button.
+      button.style.background = selected ? '#00fff72b' : '#ffffff0a' // [doc] Asigna selected ? '#00fff72b' : '#ffffff0a' en button.style.background.
+      button.style.borderColor = selected ? '#00fff7' : '#ffffff26' // [doc] Asigna selected ? '#00fff7' : '#ffffff26' en button.style.borderColor.
     }
+    this.cameraHelp.textContent = mode === 'drone' // [doc] Asigna mode === 'drone' ? 'WASD: desplazarse · Q/E: altura · Ratón: g… en this.cameraHelp.textContent.
+      ? 'WASD: desplazarse · Q/E: altura · Ratón: girar · Rueda: acercar'
+      : mode === 'firstPerson'
+        ? 'Flechas: moverse · Espacio: saltar · Arrastra para mirar'
+        : 'Flechas: moverse · Espacio: saltar'
   }
 
+  toggleMenu(open = !this.isOpen) { // [doc] Abre o cierra el panel de ajustes.
+    this.isOpen = open // [doc] Asigna open en this.isOpen.
+    this.panel.hidden = !open // [doc] Asigna !open en this.panel.hidden.
+    this.toggleButton.setAttribute('aria-expanded', String(open)) // [doc] Asigna un atributo en this.toggleButton.
+  }
 
-  destroy() {
-    this.toggleButton?.remove()
-    this.actionButtons?.forEach(btn => btn.remove())
-    this.timer?.remove()
-    this.status?.remove()
+  setStatus(text) { this.status.textContent = text } // [doc] Actualiza el texto de puntos del HUD.
+  setTimer(seconds) { this.timer.textContent = '⏱ ' + seconds + 's' } // [doc] Actualiza los segundos mostrados en el HUD.
+  setPlayerCount(count) { this.playersLabel.textContent = 'Jugadores: ' + count } // [doc] Actualiza el número de jugadores mostrado.
+
+  destroy() { // [doc] Retira objetos, suscripciones o recursos que pertenecen a esta instancia.
+    this.toggleButton.remove() // [doc] Retira el elemento de this.toggleButton.
+    this.panel.remove() // [doc] Retira el elemento de this.panel.
+    this.timer.remove() // [doc] Retira el elemento de this.timer.
+    this.status.remove() // [doc] Retira el elemento de this.status.
+    this.playersLabel.remove() // [doc] Retira el elemento de this.playersLabel.
   }
 }

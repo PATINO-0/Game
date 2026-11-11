@@ -1,37 +1,31 @@
-/* Asegura que el overlay cubra toda la pantalla sin dejar espacios */
-#loader-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: opacity 0.5s ease;
+/* Estilos activos de la barra y capa de precarga. */
+#loader-overlay { /* Aplica estilos a #loader-overlay. */
+  position: fixed; /* Define position como fixed. */
+  top: 0; /* Define top como 0. */
+  left: 0; /* Define left como 0. */
+  width: 100vw; /* Define width como 100vw. */
+  height: 100vh; /* Define height como 100vh. */
+  background: black; /* Define background como black. */
+  display: flex; /* Define display como flex. */
+  flex-direction: column; /* Define flex-direction como column. */
+  justify-content: center; /* Define justify-content como center. */
+  align-items: center; /* Define align-items como center. */
+  z-index: 9999; /* Define z-index como 9999. */
+  transition: opacity 0.5s ease; /* Define transition como opacity 0.5s ease. */
 }
-
-/* Barra de carga visual */
-#loader-bar {
-  width: 0%;
-  height: 6px;
-  background: #00fff7;
-  box-shadow: 0 0 10px #00fff7;
-  transition: width 0.3s ease;
+#loader-bar { /* Aplica estilos a #loader-bar. */
+  width: 0%; /* Define width como 0%. */
+  height: 6px; /* Define height como 6px. */
+  background: #00fff7; /* Define background como #00fff7. */
+  box-shadow: 0 0 10px #00fff7; /* Define box-shadow como 0 0 10px #00fff7. */
+  transition: width 0.3s ease; /* Define transition como width 0.3s ease. */
 }
-
-/* Texto bajo la barra */
-#loader-text {
-  color: white;
-  margin-top: 16px;
-  font-family: monospace;
+#loader-text { /* Aplica estilos a #loader-text. */
+  color: white; /* Define color como white. */
+  margin-top: 16px; /* Define margin-top como 16px. */
+  font-family: monospace; /* Define font-family como monospace. */
 }
-
-/* Animación de desaparición */
-.fade-out {
-  opacity: 0;
-  pointer-events: none;
+.fade-out { /* Aplica estilos a .fade-out. */
+  opacity: 0; /* Define opacity como 0. */
+  pointer-events: none; /* Define pointer-events como none. */
 }

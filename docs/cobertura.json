@@ -1,0 +1,621 @@
+{
+  "version": 1,
+  "archivos": [
+    {
+      "archivo": "backend/app.js",
+      "sha256": "f7f37667271ad041a989ee5054a0ced92e6616a529fb67dafd96a0ec8074d489",
+      "lineas": 52,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__app.js.md"
+    },
+    {
+      "archivo": "backend/controllers/authController.js",
+      "sha256": "557a71a6b16209a5d0e99bf707a8e334125ee38fab93900520a8c3338af02e69",
+      "lineas": 122,
+      "metodos": 3,
+      "referencia": "docs/codigo/backend__controllers__authController.js.md"
+    },
+    {
+      "archivo": "backend/controllers/blockController.js",
+      "sha256": "b468499f7b1bb3277527f3f9f9b872ef1d89260470d8ac53217bcf69ef11c7ea",
+      "lineas": 38,
+      "metodos": 3,
+      "referencia": "docs/codigo/backend__controllers__blockController.js.md"
+    },
+    {
+      "archivo": "backend/controllers/playerProfileController.js",
+      "sha256": "d037d93abacfaff4b28d46ad5040a9f5e95b49145da671731470f69913a84a35",
+      "lineas": 74,
+      "metodos": 2,
+      "referencia": "docs/codigo/backend__controllers__playerProfileController.js.md"
+    },
+    {
+      "archivo": "backend/data/precisePhysicsModels1.json",
+      "sha256": "0f3e9801e19aeb3721e3673552b69cdbc9dbab759a190709cd2b167d393d56e5",
+      "lineas": 56,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__data__precisePhysicsModels1.json.md"
+    },
+    {
+      "archivo": "backend/data/precisePhysicsModels2.json",
+      "sha256": "510a1e6b523dc3e3744cc7fe69765cb53e8e933640ba773107e13f87e917698b",
+      "lineas": 56,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__data__precisePhysicsModels2.json.md"
+    },
+    {
+      "archivo": "backend/data/precisePhysicsModels3.json",
+      "sha256": "cd7a3e0046b00472609fc1b28bc4aa66c1232d1fbea62258da7f23f37196db06",
+      "lineas": 40,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__data__precisePhysicsModels3.json.md"
+    },
+    {
+      "archivo": "backend/data/sources_1.js",
+      "sha256": "20b898711a2b4bdc537751a314884afaef215ad2c1d60ee813c5e1fd0b429457",
+      "lineas": 275,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__data__sources_1.js.md"
+    },
+    {
+      "archivo": "backend/data/sources_2.js",
+      "sha256": "20730fb0ae2ce0e1e0f2ffa9436a6556e3564fbfda6ecb39c63391f5edd36b8d",
+      "lineas": 275,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__data__sources_2.js.md"
+    },
+    {
+      "archivo": "backend/data/sources_3.js",
+      "sha256": "9174cfcddc9cb8541572ed37971d89a20492d923b3c341b98425b576d8ba8b84",
+      "lineas": 195,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__data__sources_3.js.md"
+    },
+    {
+      "archivo": "backend/data/toy_car_blocks1.json",
+      "sha256": "6b84fdfc2de8bdc2562a974a28dea91dce3ed3d41da78bfe7474bb5e2d58b431",
+      "lineas": 436,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__data__toy_car_blocks1.json.md"
+    },
+    {
+      "archivo": "backend/data/toy_car_blocks2.json",
+      "sha256": "06110103ac84955036dd2874edf7dd150bf4da6bfaf6049c5111b52a85adda7b",
+      "lineas": 434,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__data__toy_car_blocks2.json.md"
+    },
+    {
+      "archivo": "backend/data/toy_car_blocks3.json",
+      "sha256": "c8c1a7f42616aa429f98fa5d823162ca8f996cea19c88c0529854523fd28a1db",
+      "lineas": 306,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__data__toy_car_blocks3.json.md"
+    },
+    {
+      "archivo": "backend/middlewares/authMiddleware.js",
+      "sha256": "f1367c64b8be5d2dda185d9aca3abceebfcf88cdd115375cef37c0da7bbdd850",
+      "lineas": 43,
+      "metodos": 1,
+      "referencia": "docs/codigo/backend__middlewares__authMiddleware.js.md"
+    },
+    {
+      "archivo": "backend/models/Block.js",
+      "sha256": "60963974694b09ecb34ebf4db548210b1f0171947310f38ea2b7bcefaf430e36",
+      "lineas": 15,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__models__Block.js.md"
+    },
+    {
+      "archivo": "backend/models/PlayerProfile.js",
+      "sha256": "7dedda6129f01c58ef8e71880e4cc454aa08857546b1fb4a6db599105d0df8ee",
+      "lineas": 41,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__models__PlayerProfile.js.md"
+    },
+    {
+      "archivo": "backend/models/User.js",
+      "sha256": "177fb83389f706c08d0e250145a86ef3565040838e3edad22b4b6e6d5a57500b",
+      "lineas": 40,
+      "metodos": 1,
+      "referencia": "docs/codigo/backend__models__User.js.md"
+    },
+    {
+      "archivo": "backend/package.json",
+      "sha256": "2d861a0933058d5130c21437906cd285c53c6d0bbaa4047e98232a5cf688279e",
+      "lineas": 23,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__package.json.md"
+    },
+    {
+      "archivo": "backend/routes/authRoutes.js",
+      "sha256": "04b25ea1f1d126e0676c777f0ea8133bd4164282e709107e8d369344ac273961",
+      "lineas": 11,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__routes__authRoutes.js.md"
+    },
+    {
+      "archivo": "backend/routes/blockRoutes.js",
+      "sha256": "66cc4008e870f2a4631899acfed16910c61b93991331933d4b96dde4c781949d",
+      "lineas": 17,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__routes__blockRoutes.js.md"
+    },
+    {
+      "archivo": "backend/routes/profileRoutes.js",
+      "sha256": "53282c7fda23a5518f02a87efc038e112a1a9ab562fd4f47c2dbdf1f6f3c4979",
+      "lineas": 13,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__routes__profileRoutes.js.md"
+    },
+    {
+      "archivo": "backend/scripts/Text_3_cero.txt",
+      "sha256": "1b519d023db0b0ef9510b273883f44fd2ef0c233ae1ea5eb4c68bbdd0e23fae7",
+      "lineas": 74,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__scripts__Text_3_cero.txt.md"
+    },
+    {
+      "archivo": "backend/scripts/generatePhysicsModels.js",
+      "sha256": "f8d90484dc235a16ee962bec06c693c0c9971285b412f4a46a62499dd3d2fd6b",
+      "lineas": 41,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__scripts__generatePhysicsModels.js.md"
+    },
+    {
+      "archivo": "backend/scripts/generate_sources.js",
+      "sha256": "fd657ce96e36e6d748a1b6a00d2b95955b566934fa3243b0973a406b1cab0d1d",
+      "lineas": 33,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__scripts__generate_sources.js.md"
+    },
+    {
+      "archivo": "backend/scripts/renameToLowercase.js",
+      "sha256": "b2f03e6611f71b724299c04da17ad499ce42408e1ef0114ee892cdab36b27ecf",
+      "lineas": 30,
+      "metodos": 0,
+      "referencia": "docs/codigo/backend__scripts__renameToLowercase.js.md"
+    },
+    {
+      "archivo": "backend/scripts/sync_blocks.js",
+      "sha256": "ff600b18f6a60c879a1ce05b560b407e8272be910677cac69db056e65529b174",
+      "lineas": 37,
+      "metodos": 2,
+      "referencia": "docs/codigo/backend__scripts__sync_blocks.js.md"
+    },
+    {
+      "archivo": "backend/seed.js",
+      "sha256": "3b0c5d7d9f6c68cd148a39ee1b402c7159326940e564e0cf175f92539c49557e",
+      "lineas": 28,
+      "metodos": 1,
+      "referencia": "docs/codigo/backend__seed.js.md"
+    },
+    {
+      "archivo": "game-project/eslint.config.js",
+      "sha256": "5025860bc55a872861f0156d5c8cf1545bf42eb0a0e9106b6e73f229768c569d",
+      "lineas": 36,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__eslint.config.js.md"
+    },
+    {
+      "archivo": "game-project/index.html",
+      "sha256": "a675ad8cfad6d23a35a5c5164961a9cddf9f1af8e01802e20affdedf14fb084d",
+      "lineas": 16,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__index.html.md"
+    },
+    {
+      "archivo": "game-project/package.json",
+      "sha256": "08e3b5de243e1d259820af82fa672517ccf80f26c013f1b084102249a164c445",
+      "lineas": 35,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__package.json.md"
+    },
+    {
+      "archivo": "game-project/public/config/precisePhysicsModels.json",
+      "sha256": "fcee520f545c5721342f2fb67ae764ad9cd8beb1b4adbbcd447097295b0c5d3e",
+      "lineas": 155,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__public__config__precisePhysicsModels.json.md"
+    },
+    {
+      "archivo": "game-project/public/data/toy_car_blocks.json",
+      "sha256": "d4be14bd6ec0070e5b19a004cc96881027893ea9d70967c01688f2b45cbc1f41",
+      "lineas": 1170,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__public__data__toy_car_blocks.json.md"
+    },
+    {
+      "archivo": "game-project/public/data/toy_car_blocks1.json",
+      "sha256": "4c07d8711f9e77a8630dcf2e7c789402d41c534eadb5ba985833bd42bad03e19",
+      "lineas": 434,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__public__data__toy_car_blocks1.json.md"
+    },
+    {
+      "archivo": "game-project/public/data/toy_car_blocks2.json",
+      "sha256": "06110103ac84955036dd2874edf7dd150bf4da6bfaf6049c5111b52a85adda7b",
+      "lineas": 434,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__public__data__toy_car_blocks2.json.md"
+    },
+    {
+      "archivo": "game-project/public/data/toy_car_blocks3.json",
+      "sha256": "c8c1a7f42616aa429f98fa5d823162ca8f996cea19c88c0529854523fd28a1db",
+      "lineas": 306,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__public__data__toy_car_blocks3.json.md"
+    },
+    {
+      "archivo": "game-project/src/App.css",
+      "sha256": "0d9ca5705145ad504b6f571de2979e4a4c8310011df4776a02c596d871e34a2e",
+      "lineas": 43,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__src__App.css.md"
+    },
+    {
+      "archivo": "game-project/src/App.jsx",
+      "sha256": "8cd238db0f35d4bc7e8bc5450d061b236edeb05e43fce6904eb7425fb64fc1d3",
+      "lineas": 450,
+      "metodos": 10,
+      "referencia": "docs/codigo/game-project__src__App.jsx.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Camera.js",
+      "sha256": "08fa9314b9934dcd7980dfc85ca833c7300db9ee51d38fd4af5f9ba6bb87d2ce",
+      "lineas": 114,
+      "metodos": 11,
+      "referencia": "docs/codigo/game-project__src__Experience__Camera.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Experience.js",
+      "sha256": "8028cd4c26cb925f92296fcfde442689812cd95735ea28d583c40a374600f78c",
+      "lineas": 316,
+      "metodos": 16,
+      "referencia": "docs/codigo/game-project__src__Experience__Experience.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Renderer.js",
+      "sha256": "40ce46eb9b136ad4d85a1a7abbf8f055893713fda53130b6e93ab3020279d34b",
+      "lineas": 46,
+      "metodos": 3,
+      "referencia": "docs/codigo/game-project__src__Experience__Renderer.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/CharacterMotor.js",
+      "sha256": "8c7e43602d58254b8d6ef377a204f4ef11f74bffa437aac52f1d901962350ec1",
+      "lineas": 145,
+      "metodos": 9,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__CharacterMotor.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/Debug.js",
+      "sha256": "ee9125cb8680ec7bb0daed6c438ef7927f494fefcb2a3f7d60b4d2795c823f34",
+      "lineas": 17,
+      "metodos": 1,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__Debug.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/Device.js",
+      "sha256": "b9f09747e1a34692836cdfeae6b8bf6308790e260dbc061a1bb51e6322d8f1c3",
+      "lineas": 6,
+      "metodos": 1,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__Device.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/Difficulty.js",
+      "sha256": "e25e6b25149c306bd30a0d0f3fcd51f03945b8ba63b4e2974ed58ed565a129ed",
+      "lineas": 12,
+      "metodos": 1,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__Difficulty.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/EnemySteering.js",
+      "sha256": "09e08894069ea02ba421d2a417521585afb9f5b15c7c44c7be7fc50ebe2d148a",
+      "lineas": 82,
+      "metodos": 3,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__EnemySteering.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/EventEmitter.js",
+      "sha256": "1a9b9b5b1f635c05c284c2ab65f0b3c6a4eec436c6a5a239287987b225d4864f",
+      "lineas": 178,
+      "metodos": 6,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__EventEmitter.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/FinalPrizeParticles.js",
+      "sha256": "524dd480ac6a19eda49da3be2c1d6374dc708fa2707d620cf06cf656eceac3f0",
+      "lineas": 372,
+      "metodos": 4,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__FinalPrizeParticles.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/GameTracker.js",
+      "sha256": "e09272f9ddf67f1de5538ca86ff88a4de3a6f8b17dbb17ed2aa5d1ff7bcc2075",
+      "lineas": 173,
+      "metodos": 14,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__GameTracker.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/KeyboardControls.js",
+      "sha256": "ad4bbb777067ab765db5e8d5f0916856f26da743b9ad4db15a123339bd335ad3",
+      "lineas": 44,
+      "metodos": 3,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__KeyboardControls.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/MaterialOptimizer.js",
+      "sha256": "9f5006d03a4d2d5b1d4a44f479b0336fd2f0623fadff6956494e214014aebf19",
+      "lineas": 52,
+      "metodos": 2,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__MaterialOptimizer.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/ModalManager.js",
+      "sha256": "3bdfa735e14f9f2cbce655788a01b2e87371dfc76fd10f2b013e0e6451ee17af",
+      "lineas": 111,
+      "metodos": 6,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__ModalManager.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/Physics.js",
+      "sha256": "a38864b2cd86f89d12772acff9e4d667499d8fe2e7962dd5d9f58a24d0f7fb0b",
+      "lineas": 87,
+      "metodos": 5,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__Physics.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/PhysicsShapeFactory.js",
+      "sha256": "0dd251d4f926f5ef3546f3cdb7ba79790c15d09accc46aa370377164d524dce5",
+      "lineas": 69,
+      "metodos": 3,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__PhysicsShapeFactory.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/Raycaster.js",
+      "sha256": "3f375e514df98e0aafde8f7b252ff44db3ee2704afd46b15e219eada26654289",
+      "lineas": 167,
+      "metodos": 10,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__Raycaster.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/Resources.js",
+      "sha256": "62eacd25a1be30ab1a4ee9add16021aaf7d1c598ac10602cdcd8e37c981798ce",
+      "lineas": 90,
+      "metodos": 7,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__Resources.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/SceneBatcher.js",
+      "sha256": "df6ad61459f5314a9a1a13d2bcf9ba195cff8e263ce5814b499af6bd62072c60",
+      "lineas": 50,
+      "metodos": 1,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__SceneBatcher.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/Sizes.js",
+      "sha256": "551784affa5d26faaa9cc50cfa007e2f6eb38b715d828e5d43ab4a6520a046fb",
+      "lineas": 25,
+      "metodos": 1,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__Sizes.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/Time.js",
+      "sha256": "fb6aef0157ef4208b1ece5d9d0cd2d0193bdce3db2f663e445381df62ab323b8",
+      "lineas": 37,
+      "metodos": 2,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__Time.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/Utils/progressSync.js",
+      "sha256": "8227d3fedb79c910dd5c72678d1caa650aedc7024711166453c56cde8b490810",
+      "lineas": 61,
+      "metodos": 1,
+      "referencia": "docs/codigo/game-project__src__Experience__Utils__progressSync.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/AmbientSound.js",
+      "sha256": "708ce6957ac2bc19eb95b490a15001fcc08b6c5015f7a5b3269ab62225001ad2",
+      "lineas": 45,
+      "metodos": 2,
+      "referencia": "docs/codigo/game-project__src__Experience__World__AmbientSound.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/BlockPrefab.js",
+      "sha256": "69f1beaf5e0ecbe23d273a11e85be5defea1224bb6d7e26e869f7b7327feba1d",
+      "lineas": 54,
+      "metodos": 3,
+      "referencia": "docs/codigo/game-project__src__Experience__World__BlockPrefab.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/DebugScene.js",
+      "sha256": "1ec091cba4ae63164fc0c102cb8e56335be0f6908c1ba17db6b6cb2d12587653",
+      "lineas": 17,
+      "metodos": 1,
+      "referencia": "docs/codigo/game-project__src__Experience__World__DebugScene.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/Enemy.js",
+      "sha256": "64bf9521236a63cca71876f8149846f9bbdfc6a39a75fe706929d8460eb15a4d",
+      "lineas": 138,
+      "metodos": 6,
+      "referencia": "docs/codigo/game-project__src__Experience__World__Enemy.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/Environment.js",
+      "sha256": "d28a4682a4a144b289eb35a31ec31bb9e9490b23a51d418dc8b018d14ee08a5d",
+      "lineas": 92,
+      "metodos": 4,
+      "referencia": "docs/codigo/game-project__src__Experience__World__Environment.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/FirstPersonCamera.js",
+      "sha256": "573730fa4d18b9553a693ffaf55f096af83eda46d3c07694d98ecbff59a9f85b",
+      "lineas": 23,
+      "metodos": 2,
+      "referencia": "docs/codigo/game-project__src__Experience__World__FirstPersonCamera.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/Floor.js",
+      "sha256": "36470e241ffa0b08db4e9650dc58fcabf523663095037c2cb4e00c75abc70bd7",
+      "lineas": 93,
+      "metodos": 4,
+      "referencia": "docs/codigo/game-project__src__Experience__World__Floor.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/Fox.js",
+      "sha256": "5b66ff426b55873a0a9ae808cf8b4c60652a6699c06e16dcd8eedce2be1d128d",
+      "lineas": 117,
+      "metodos": 6,
+      "referencia": "docs/codigo/game-project__src__Experience__World__Fox.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/LevelManager.js",
+      "sha256": "d126edd10a172c408333c75d0dc701d45e52a3ef15b7f3999f21ff8487b16662",
+      "lineas": 31,
+      "metodos": 4,
+      "referencia": "docs/codigo/game-project__src__Experience__World__LevelManager.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/Prize.js",
+      "sha256": "8b494d37f02a41109961a62c4ef9906f548ab562da91089acd20cc8e21b4046d",
+      "lineas": 55,
+      "metodos": 3,
+      "referencia": "docs/codigo/game-project__src__Experience__World__Prize.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/Robot.js",
+      "sha256": "fee9df8cfe4e9fd87c72c80bf7987f3992aee886f1fded6f7ec3acdf1ad724d8",
+      "lineas": 128,
+      "metodos": 11,
+      "referencia": "docs/codigo/game-project__src__Experience__World__Robot.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/Sound.js",
+      "sha256": "2e2db5cd47d2df141d9722031e84bf4d8ad811e22fe2a78647c25ce2b985284a",
+      "lineas": 67,
+      "metodos": 4,
+      "referencia": "docs/codigo/game-project__src__Experience__World__Sound.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/ThirdPersonCamera.js",
+      "sha256": "bdf0ba8cd9446abc6cda234cc72756c7a45a4c7b0cfaf84e4087f6872b17f1b2",
+      "lineas": 43,
+      "metodos": 2,
+      "referencia": "docs/codigo/game-project__src__Experience__World__ThirdPersonCamera.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/World/World.js",
+      "sha256": "3566b65c4c3f48da750e2e1cefa9ad662a7b41b76c30986313ece22563bdf81c",
+      "lineas": 555,
+      "metodos": 20,
+      "referencia": "docs/codigo/game-project__src__Experience__World__World.js.md"
+    },
+    {
+      "archivo": "game-project/src/Experience/sources.js",
+      "sha256": "7e199287d4b7e796902ba87e24041941b5c0c92b9cedf0532ae926cd79ecf796",
+      "lineas": 783,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__src__Experience__sources.js.md"
+    },
+    {
+      "archivo": "game-project/src/controls/CircularMenu.js",
+      "sha256": "565b54aa8a38c3e3a86a3f3abf23efb758740dedb2af0bdcfe08027d81e1dd19",
+      "lineas": 104,
+      "metodos": 9,
+      "referencia": "docs/codigo/game-project__src__controls__CircularMenu.js.md"
+    },
+    {
+      "archivo": "game-project/src/controls/MobileControls.js",
+      "sha256": "9b27210c98e1fad64a156ebc1befef0bf46cd86cc4f8cea374190aeacf76839b",
+      "lineas": 168,
+      "metodos": 9,
+      "referencia": "docs/codigo/game-project__src__controls__MobileControls.js.md"
+    },
+    {
+      "archivo": "game-project/src/index.css",
+      "sha256": "1d8e078e159b50d8f0e61f12edcd7e76701e470b48369bb23b5ea3775ea76199",
+      "lineas": 69,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__src__index.css.md"
+    },
+    {
+      "archivo": "game-project/src/index.html",
+      "sha256": "0f98be8f1c79ab192ff2ff13059e198cf65bb6a6b8b6ffdc39242ec67598fd15",
+      "lineas": 15,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__src__index.html.md"
+    },
+    {
+      "archivo": "game-project/src/integrations/VRIntegration.js",
+      "sha256": "0614f5c2c980c71c3711dd370d8099c757b686b9f9dd0e95d1cfa5bf0f0ca470",
+      "lineas": 392,
+      "metodos": 15,
+      "referencia": "docs/codigo/game-project__src__integrations__VRIntegration.js.md"
+    },
+    {
+      "archivo": "game-project/src/loaders/ToyCarLoader.js",
+      "sha256": "b2ff7ab2ba2ffe195c233b2c9088d0063bae64bef5db3a85c66a9534cac92049",
+      "lineas": 218,
+      "metodos": 6,
+      "referencia": "docs/codigo/game-project__src__loaders__ToyCarLoader.js.md"
+    },
+    {
+      "archivo": "game-project/src/main.jsx",
+      "sha256": "58960f2ad5076e922db7af806e6d54a97b8ab54b7004bb5dcb384d51bf702664",
+      "lineas": 9,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__src__main.jsx.md"
+    },
+    {
+      "archivo": "game-project/src/network/SocketManager.js",
+      "sha256": "08fd74fe2944e3dbf7e4e14f6e49c495db168fffdb77305d81ccc0687ece2095",
+      "lineas": 194,
+      "metodos": 5,
+      "referencia": "docs/codigo/game-project__src__network__SocketManager.js.md"
+    },
+    {
+      "archivo": "game-project/src/style.css",
+      "sha256": "c7530d9f5ea059c2ed4d5b000b830337fb7467d807d4860dff1a708ba4b8c430",
+      "lineas": 90,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__src__style.css.md"
+    },
+    {
+      "archivo": "game-project/src/styles/loader.css",
+      "sha256": "ff4634517862c647a2e5f532420f640d850ea50d61f2500289b4b1bd38467013",
+      "lineas": 31,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__src__styles__loader.css.md"
+    },
+    {
+      "archivo": "game-project/tests/optimization.test.mjs",
+      "sha256": "0b44354c442770a41605013c756e4a8e48d838e04a34ca5f7dd366c6d6b1ee2f",
+      "lineas": 77,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__tests__optimization.test.mjs.md"
+    },
+    {
+      "archivo": "game-project/tests/physics.test.mjs",
+      "sha256": "6cf17533f2be87e9aac336cd8dc4912106ce9f1b6aa675f239f2ed14c761ae44",
+      "lineas": 311,
+      "metodos": 6,
+      "referencia": "docs/codigo/game-project__tests__physics.test.mjs.md"
+    },
+    {
+      "archivo": "game-project/vite.config.js",
+      "sha256": "9d4b900ab0fa2d0908d622434ac00db7ec748da2b9abb54b039ddf788c39b341",
+      "lineas": 9,
+      "metodos": 0,
+      "referencia": "docs/codigo/game-project__vite.config.js.md"
+    },
+    {
+      "archivo": "scripts/document-code.mjs",
+      "sha256": "9ddb570ab241a320220873cdea9ae9515f1efd1d3fc89bb52b4925d2b99484b6",
+      "lineas": 437,
+      "metodos": 24,
+      "referencia": "docs/codigo/scripts__document-code.mjs.md"
+    }
+  ]
+}

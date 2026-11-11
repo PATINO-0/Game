@@ -1,90 +1,90 @@
-* {
-    margin: 0;
-    padding: 0;
+/* Hoja activa importada por main.jsx: presentación general y controles de la experiencia. */
+* { /* Aplica estilos a *. */
+    margin: 0; /* Define margin como 0. */
+    padding: 0; /* Define padding como 0. */
 }
 
 html,
 body {
-    overflow: hidden;
-    font-family: 'Roboto', sans-serif;
+    overflow: hidden; /* Define overflow como hidden. */
+    font-family: 'Roboto', sans-serif; /* Define font-family como 'Roboto', sans-serif. */
   }
  
 
-.webgl {
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
+.webgl { /* Aplica estilos a .webgl. */
+    position: fixed; /* Define position como fixed. */
+    top: 0; /* Define top como 0. */
+    left: 0; /* Define left como 0. */
+    outline: none; /* Define outline como none. */
 }
 
-.circular-menu {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 12px;
-    border-radius: 50px;
-    backdrop-filter: blur(8px);
+.circular-menu { /* Aplica estilos a .circular-menu. */
+    position: absolute; /* Define position como absolute. */
+    top: 20px; /* Define top como 20px. */
+    left: 50%; /* Define left como 50%. */
+    transform: translateX(-50%); /* Define transform como translateX(-50%). */
+    display: flex; /* Define display como flex. */
+    gap: 12px; /* Define gap como 12px. */
+    justify-content: center; /* Define justify-content como center. */
+    align-items: center; /* Define align-items como center. */
+    z-index: 100; /* Define z-index como 100. */
+    background: rgba(0, 0, 0, 0.4); /* Define background como rgba(0, 0, 0, 0.4). */
+    padding: 12px; /* Define padding como 12px. */
+    border-radius: 50px; /* Define border-radius como 50px. */
+    backdrop-filter: blur(8px); /* Define backdrop-filter como blur(8px). */
 }
 
-.menu-item {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    transition: transform 0.2s ease;
+.menu-item { /* Aplica estilos a .menu-item. */
+    background: none; /* Define background como none. */
+    border: none; /* Define border como none. */
+    cursor: pointer; /* Define cursor como pointer. */
+    padding: 8px; /* Define padding como 8px. */
+    width: 48px; /* Define width como 48px. */
+    height: 48px; /* Define height como 48px. */
+    border-radius: 50%; /* Define border-radius como 50%. */
+    transition: transform 0.2s ease; /* Define transition como transform 0.2s ease. */
 }
 
-.menu-item:hover {
-    transform: scale(1.15);
+.menu-item:hover { /* Aplica estilos a .menu-item:hover. */
+    transform: scale(1.15); /* Define transform como scale(1.15). */
 }
 
-.menu-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: invert(1);
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('/fonts/Roboto-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
+.menu-item img { /* Aplica estilos a .menu-item img. */
+    width: 100%; /* Define width como 100%. */
+    height: 100%; /* Define height como 100%. */
+    object-fit: contain; /* Define object-fit como contain. */
+    filter: invert(1); /* Define filter como invert(1). */
 }
 
 @font-face {
-    font-family: 'Roboto';
-    src: url('/fonts/Roboto-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
+    font-family: 'Roboto'; /* Define font-family como 'Roboto'. */
+    src: url('/fonts/Roboto-Regular.ttf') format('truetype'); /* Define src como url('/fonts/Roboto-Regular.ttf') format('truetype'). */
+    font-weight: 400; /* Define font-weight como 400. */
+    font-style: normal; /* Define font-style como normal. */
+}
+
+@font-face {
+    font-family: 'Roboto'; /* Define font-family como 'Roboto'. */
+    src: url('/fonts/Roboto-Bold.ttf') format('truetype'); /* Define src como url('/fonts/Roboto-Bold.ttf') format('truetype'). */
+    font-weight: 700; /* Define font-weight como 700. */
+    font-style: normal; /* Define font-style como normal. */
 }
 
 h1,
 .modal-box .icon {
-    font-weight: 700;
+    font-weight: 700; /* Define font-weight como 700. */
 }
 
 p,
 .modal-box .text {
-    font-weight: 400;
+    font-weight: 400; /* Define font-weight como 400. */
 }
 
-.modal-box button {
-    font-family: 'Roboto', sans-serif;
+.modal-box button { /* Aplica estilos a .modal-box button. */
+    font-family: 'Roboto', sans-serif; /* Define font-family como 'Roboto', sans-serif. */
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95) translate(-50%, -50%); }
-    to { opacity: 1; transform: scale(1) translate(-50%, -50%); }
+    from { opacity: 0; transform: scale(0.95) translate(-50%, -50%); } /* Define transform como scale(0.95) translate(-50%, -50%). */
+    to { opacity: 1; transform: scale(1) translate(-50%, -50%); } /* Define transform como scale(1) translate(-50%, -50%). */
   }
-  

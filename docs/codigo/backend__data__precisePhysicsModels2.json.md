@@ -1,0 +1,72 @@
+# backend/data/precisePhysicsModels2.json
+
+Lista histórica de nombres de colisión; el cargador actual construye cuerpos desde todas las mallas del ambiente.
+
+Fuente: [backend/data/precisePhysicsModels2.json](../../backend/data/precisePhysicsModels2.json). La numeración corresponde al archivo comentado.
+
+## Funciones y métodos
+
+Este archivo declara datos, configuración o instrucciones de entrada sin métodos propios con nombre.
+
+## Referencia por línea
+
+Cada fila conserva el código de esa línea y explica su operación o su papel estructural. Los textos HTML/CSS y las plantillas se documentan aquí sin insertar comentarios que alterarían su contenido.
+
+| Línea | Código | Qué hace |
+| ---: | --- | --- |
+| 1 | <code>&#91;</code> | Continúa la expresión, el texto o la configuración del bloque anterior. |
+| 2 | <code>    "simple_tree_5.001_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 3 | <code>    "plane_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 4 | <code>    "baked_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 5 | <code>    "rock_11.001_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 6 | <code>    "object_0_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 7 | <code>    "object_1_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 8 | <code>    "object_2_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 9 | <code>    "simple_tree_5.001.001_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 10 | <code>    "simple_tree_5.001.002_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 11 | <code>    "simple_tree_5.001.003_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 12 | <code>    "simple_tree_5.001.004_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 13 | <code>    "simple_tree_5.001.005_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 14 | <code>    "simple_tree_5.001.006_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 15 | <code>    "simple_tree_5.001.007_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 16 | <code>    "simple_tree_5.001.008_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 17 | <code>    "simple_tree_5.001.009_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 18 | <code>    "simple_tree_5.001.010_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 19 | <code>    "simple_tree_5.001.011_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 20 | <code>    "simple_tree_5.001.012_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 21 | <code>    "simple_tree_5.001.013_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 22 | <code>    "simple_tree_5.001.014_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 23 | <code>    "object_0.001_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 24 | <code>    "object_1.001_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 25 | <code>    "object_2.001_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 26 | <code>    "object_3_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 27 | <code>    "object_4_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 28 | <code>    "coin_1_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 29 | <code>    "coin_1.001_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 30 | <code>    "coin_1.002_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 31 | <code>    "coin_1.003_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 32 | <code>    "coin_1.004_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 33 | <code>    "coin_1.005_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 34 | <code>    "coin_1.006_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 35 | <code>    "coin_1.008_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 36 | <code>    "obj_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 37 | <code>    "nuvema_town_house_1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 38 | <code>    "palmtree_1.007.009_lev1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 39 | <code>    "palmtree_1.007.009_lev1.001_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 40 | <code>    "palmtree_1.007.009_lev1.002_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 41 | <code>    "palmtree_1.007.009_lev1.003_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 42 | <code>    "palmtree_1.007.009_lev1.004_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 43 | <code>    "palmtree_1.007.009_lev1.005_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 44 | <code>    "coin_1_lev1.001_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 45 | <code>    "palmtree_1.007.009_lev1.002.001_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 46 | <code>    "palmtree_1.007.009_lev1.002.002_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 47 | <code>    "palmtree_1.007.009_lev1.002.003_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 48 | <code>    "palmtree_1.007.009_lev1.002.004_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 49 | <code>    "palmtree_1.007.009_lev1.002.005_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 50 | <code>    "palmtree_1.007.009_lev1.001_lev2.002",</code> | Incluye esta cadena en el arreglo de datos. |
+| 51 | <code>    "palmtree_1.007.009_lev1.001.001_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 52 | <code>    "object_0_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 53 | <code>    "object_1_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 54 | <code>    "object_2_lev2",</code> | Incluye esta cadena en el arreglo de datos. |
+| 55 | <code>    "object_3_lev2"</code> | Incluye esta cadena en el arreglo de datos. |
+| 56 | <code>&#93;</code> | Cierra el bloque, la configuración o la llamada anterior. |

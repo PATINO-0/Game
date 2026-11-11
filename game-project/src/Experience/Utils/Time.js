@@ -1,35 +1,37 @@
-import EventEmitter from './EventEmitter.js'
+/**
+ * Emite tick desde requestAnimationFrame y mide el tiempo entre cuadros en milisegundos.
+ */
+import EventEmitter from './EventEmitter.js' // [doc] Importa EventEmitter desde ./EventEmitter.js.
 
-export default class Time extends EventEmitter
+export default class Time extends EventEmitter // [doc] Define la clase Time.
 {
-    constructor()
+    constructor() // [doc] Inicializa dependencias, estado y elementos necesarios de la instancia.
     {
-        super()
+        super() // [doc] Ejecuta super.
 
-        // Setup
-        this.start = Date.now()
-        this.current = this.start
-        this.elapsed = 0
-        this.delta = 16
+        this.start = Date.now() // [doc] Asigna Date.now() en this.start.
+        this.current = this.start // [doc] Asigna this.start en this.current.
+        this.elapsed = 0 // [doc] Asigna 0 en this.elapsed.
+        this.delta = 16 // [doc] Asigna 16 en this.delta.
 
-        window.requestAnimationFrame(() =>
+        window.requestAnimationFrame(() => // [doc] Programa el siguiente cuadro de animación.
         {
-            this.tick()
+            this.tick() // [doc] Ejecuta this.tick.
         })
     }
 
-    tick()
+    tick() // [doc] Mide el tiempo transcurrido y emite la actualización de escritorio.
     {
-        const currentTime = Date.now()
-        this.delta = currentTime - this.current
-        this.current = currentTime
-        this.elapsed = this.current - this.start
+        const currentTime = Date.now() // [doc] Guarda Date.now() en currentTime.
+        this.delta = currentTime - this.current // [doc] Asigna currentTime - this.current en this.delta.
+        this.current = currentTime // [doc] Asigna currentTime en this.current.
+        this.elapsed = this.current - this.start // [doc] Asigna this.current - this.start en this.elapsed.
 
-        this.trigger('tick')
+        this.trigger('tick') // [doc] Emite el evento de this.
 
-        window.requestAnimationFrame(() =>
+        window.requestAnimationFrame(() => // [doc] Programa el siguiente cuadro de animación.
         {
-            this.tick()
+            this.tick() // [doc] Ejecuta this.tick.
         })
     }
 }

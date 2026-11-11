@@ -1,112 +1,75 @@
-# 🎮 game-project
+# Frontend del juego 3D
 
-> Proyecto base para el desarrollo de entornos 3D interactivos usando **React + Three.js**, con un enfoque estructurado en **Programación Orientada a Objetos (OOP)**.
+La documentación completa está en el [README principal](../README.md), incluido el proceso de Blender, MongoDB, recursos y físicas.
 
----
+## Inicio
 
-## 🚀 Descripción
+~~~powershell
+npm.cmd ci
+if (-not (Test-Path -LiteralPath '.env')) {
+    Copy-Item -LiteralPath '.env-example' -Destination '.env'
+}
+npm.cmd run dev
+~~~
 
-Este repositorio proporciona la base de trabajo para crear un proyecto 3D inmersivo y escalable, utilizando **React** para la integración y estado, junto a **Three.js** para la representación gráfica.
+Vite suele servir en http://localhost:5173. El comando dev ya incluye --host. Configura VITE_API_URL con el origen del backend y reinicia Vite al cambiar el entorno.
 
-El proyecto está diseñado para que los estudiantes y desarrolladores puedan enfocarse en la construcción progresiva de su entorno interactivo, aplicando principios sólidos de arquitectura y OOP.
+## Comandos
 
----
+~~~powershell
+npm.cmd test
+npm.cmd run build
+npm.cmd run preview
+~~~
 
-## 🎯 Objetivos del Proyecto
+La compilación escribe dist. preview no inicia la API ni MongoDB. npm run lint conserva un alcance global que incluye decodificadores externos; el README principal indica los archivos activos validados.
 
-✅ Aplicar buenas prácticas de **Programación Orientada a Objetos** en el desarrollo de entornos 3D.  
-✅ Integrar **Three.js** dentro de un ecosistema moderno basado en React.  
-✅ Facilitar la escalabilidad y mantenibilidad mediante una estructura modular y clara.  
-✅ Centralizar la gestión del entorno a través de la clase principal `Experience`.  
+## Estructura y responsables
 
----
+| Entrada o módulo | Responsabilidad |
+| --- | --- |
+| index.html | HTML que utiliza Vite. |
+| src/main.jsx | Montaje de React. |
+| src/App.jsx | Login, registro, acceso offline y precarga. |
+| Experience | Coordinación de la partida y su ciclo. |
+| World | Entidades, niveles, puntos, portales y finalización. |
+| Camera | Dron, tercera y primera persona. |
+| Renderer | Dibujo WebGL y resolución adaptativa. |
+| Resources | Recursos por nivel, solicitudes compartidas y liberación. |
+| Physics | Mundo Cannon y pasos fijos. |
+| CharacterMotor | Apoyo, movimiento, salto y escalones. |
+| PhysicsShapeFactory | Colisionadores del ambiente a partir del GLB. |
+| Enemy / EnemySteering / Difficulty | Persecución, evitación y dificultad. |
+| ToyCarLoader | Registros, modelos, texturas especiales y construcción del nivel. |
+| MaterialOptimizer / SceneBatcher | Materiales ligeros y lotes visuales. |
+| CircularMenu | Ajustes, cámaras y HUD. |
+| VRIntegration | Sesiones WebXR y controladores. |
+| tests | Física, carga, optimización y cámara. |
 
-## 📂 Estructura del Proyecto
+src/index.html, src/App.css y src/index.css son archivos históricos de plantilla. La entrada activa utiliza src/style.css y src/styles/loader.css.
 
-```
-game-project/
-├── public/
-├── src/
-│   ├── components/        # Componentes React
-│   ├── styles/            # Estilos y assets
-│   ├── Experience/        # Núcleo del entorno 3D
-│   │   ├── Experience.js  # Clase principal (Entry Point)
-│   │   ├── World/         # Manejo del mundo 3D
-│   │   ├── Environment/   # Configuración de luces, cámaras y ambiente
-│   │   ├── Resources/     # Carga y gestión de assets
-│   │   ├── Sources.js     # Definición de recursos
-│   │   ├── Sizes.js      # Gestión de dimensiones responsivas
-│   │   ├── Time.js       # Control de tiempo y animaciones
-│   │   └── Debug.js      # Herramientas de depuración (opcional)
-│   ├── App.jsx           # Integración con React
-│   └── main.jsx          # Entry point React
-├── package.json
-└── README.md
-```
+## Controles
 
----
+- Flechas: avance, retroceso y giro del personaje.
+- Espacio: salto con apoyo.
+- Ajustes: selector de cámara y opciones.
+- Dron: WASD, Q/E, ratón, rueda y Shift.
+- Primera persona: arrastre del ratón para mirar.
+- Móvil: joystick y salto táctil.
 
-## 🧩 ¿Qué hace la clase `Experience`?
+La cámara elegida se guarda localmente. Los enemigos usan velocidades objetivo 2.4, 3.2 y 4.1 según nivel.
 
-La clase `Experience` es el **corazón del proyecto**. Su función principal es **gestionar y centralizar** todos los elementos y subclases del entorno 3D, incluyendo:
+## Mundos y recursos
 
-| Subclase / Módulo | Función                                                  |
-|-------------------|----------------------------------------------------------|
-| **Sizes**        | Controla el tamaño dinámico de la escena (responsive).    |
-| **Time**         | Controla el tiempo y la animación del render.             |
-| **World**        | Maneja los elementos y lógica del mundo 3D.               |
-| **Environment**  | Configura luces, cámara y ambiente.                      |
-| **Resources**    | Carga y gestiona los modelos y texturas.                  |
-| **Sources**      | Define la lista de recursos a cargar.                     |
+public contiene archivos estáticos; no se añade public a sus URL. Los GLB del catálogo activo se encuentran en models/toycar para los tres niveles.
 
-Esto permite mantener un flujo ordenado y facilitar la comunicación entre componentes, evitando dependencias innecesarias.
+El juego carga primero el nivel 1 y recursos comunes. Cada cambio carga sus registros, espera sus modelos, limpia el mundo anterior y construye nuevas colisiones. Las masas y contactos se configuran en JavaScript, no se importan como simulación de Blender.
 
----
+Consulta el [catálogo completo y referencias por línea](../docs/INDICE.md). Después de cambiar código, desde la raíz:
 
-## 🎮 ¿Qué aprenderás trabajando aquí?
+~~~powershell
+node scripts/document-code.mjs --annotate
+node scripts/document-code.mjs --check
+~~~
 
-✅ Integrar y manipular entornos 3D con Three.js y React  
-✅ Implementar conceptos de OOP en un proyecto real  
-✅ Gestionar estados, recursos y animaciones de forma eficiente  
-✅ Comprender la importancia de la arquitectura modular en proyectos 3D
-
----
-
-## ⚙️ Instalación y ejecución
-
-1. Clona este repositorio:
-```bash
-git clone https://github.com/tu-usuario/game-project.git
-cd game-project
-```
-
-2. Instala las dependencias:
-```bash
-npm install
-```
-
-3. Ejecuta el proyecto:
-```bash
-npm run dev
-```
-
----
-
-## 🌐 Tecnologías utilizadas
-
-- [React](https://react.dev/)
-- [Three.js](https://threejs.org/)
-- [Vite](https://vitejs.dev/) (para empaquetado)
-- Programación Orientada a Objetos (POO)
-- Estructura modular y escalable
-
----
-
-## 📄 Licencia
-
-Este proyecto es de uso académico y formativo para estudiantes y desarrolladores que deseen aprender sobre entornos 3D aplicados a React y OOP.
-
----
-## 🧑 Autor
-- Gustavo Willyn Sánchez Rodríguez
-- email: guswillsan@gmail.com
+La generación de comentarios comprueba los árboles sintácticos. No sustituye pruebas ni revisión de nuevas reglas.

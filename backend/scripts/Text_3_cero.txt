@@ -1,67 +1,74 @@
-import bpy
-import os
-import json
-from mathutils import Vector
+# Exporta mallas seleccionadas y coordenadas compatibles con Three.js.
 
-# -------- Configuraciones --------
-nivel = 1  # 🔵 Puedes cambiar a 2, 3, etc. para otros niveles
 
-# Rutas de exportación
-export_path = r"D:/UCC/React/PortafolioUCC/Projecto_final_v1/game-project/public/models/toycar2"
-json_path = os.path.join(export_path, f"toy_car_blocks{nivel}.json")
-os.makedirs(export_path, exist_ok=True)
 
-positions = []
 
-# Configuración de Blender
-depsgraph = bpy.context.evaluated_depsgraph_get()
-bpy.ops.object.mode_set(mode='OBJECT')
-bpy.context.view_layer.update()
 
-# -------- Recorrer objetos seleccionados --------
-for obj in bpy.context.selected_objects:
-    if obj.type != 'MESH':
-        continue
 
-    obj_eval = obj.evaluated_get(depsgraph)
-    matrix_world = obj_eval.matrix_world
-    loc = matrix_world.to_translation()
+import bpy # [doc] Accede a escenas y operadores de Blender.
+import os # [doc] Permite crear carpetas y construir rutas.
+import json # [doc] Permite escribir los registros de posición.
+from mathutils import Vector # [doc] Importa Vector; el script actual no lo utiliza.
 
-    # 🔵 Normalizar el nombre
-    name = obj.name.lower().replace(" ", "_").replace(f"_lev{nivel}", "")
 
-    # 🔵 Asignar nuevo nombre con nivel
-    name_with_level = f"{name}_lev{nivel}"
-    obj.name = name_with_level
+nivel = 1 # [doc] Selecciona el nivel que quedará en los nombres y registros.
 
-    # 🔵 Conversión de coordenadas para Three.js
-    pos = {
-        "name": obj.name,       # Nombre ya corregido
-        "x": loc.x,              # X real
-        "y": loc.z,              # Z de Blender pasa a Y en Three.js
-        "z": -loc.y,             # Invertir Y de Blender para ser Z en Three.js
-        "level": nivel,
-        "role": "default"        # Permitira definir objetos con roles especiales
+
+export_path = r"D:/UCC/React/PortafolioUCC/Projecto_final_v1/game-project/public/models/toycar2" # [doc] Define la carpeta de salida; debe adaptarse a esta copia del repositorio.
+json_path = os.path.join(export_path, f"toy_car_blocks{nivel}.json") # [doc] Construye el nombre del JSON de posiciones del nivel.
+os.makedirs(export_path, exist_ok=True) # [doc] Crea la carpeta de salida si todavía no existe.
+
+positions = [] # [doc] Inicia el arreglo de registros exportados.
+
+
+depsgraph = bpy.context.evaluated_depsgraph_get() # [doc] Obtiene el grafo evaluado de la escena.
+bpy.ops.object.mode_set(mode='OBJECT') # [doc] Cambia a modo Objeto para permitir la selección.
+bpy.context.view_layer.update() # [doc] Actualiza las transformaciones de la escena.
+
+
+for obj in bpy.context.selected_objects: # [doc] Recorre la lista de objetos seleccionados al iniciar el bucle.
+    if obj.type != 'MESH': # [doc] Permite exportar únicamente objetos de malla.
+        continue # [doc] Omite el objeto que no es una malla.
+
+    obj_eval = obj.evaluated_get(depsgraph) # [doc] Lee el objeto evaluado con sus transformaciones finales.
+    matrix_world = obj_eval.matrix_world # [doc] Obtiene su matriz de transformación mundial.
+    loc = matrix_world.to_translation() # [doc] Extrae la posición mundial del objeto.
+
+
+    name = obj.name.lower().replace(" ", "_").replace(f"_lev{nivel}", "") # [doc] Normaliza el nombre y retira el sufijo del nivel actual.
+
+
+    name_with_level = f"{name}_lev{nivel}" # [doc] Añade el sufijo del nivel a exportar.
+    obj.name = name_with_level # [doc] Actualiza el nombre de la malla en la sesión de Blender.
+
+
+    pos = { # [doc] Construye el registro que consumirá el juego.
+        "name": obj.name, # [doc] Conserva la clave que debe coincidir con sources.js.
+        "x": loc.x, # [doc] Conserva el eje X de Blender.
+        "y": loc.z, # [doc] Convierte la altura Z de Blender en Y.
+        "z": -loc.y, # [doc] Convierte Y de Blender en Z con signo invertido.
+        "level": nivel, # [doc] Asocia el registro al nivel exportado.
+        "role": "default" # [doc] Asigna el rol normal; una moneda final necesita otro valor.
     }
 
-    positions.append(pos)
-    print(f"📦 {obj.name}: ({pos['x']}, {pos['y']}, {pos['z']}, nivel {pos['level']})")
+    positions.append(pos) # [doc] Añade el registro a la lista de salida.
+    print(f"📦 {obj.name}: ({pos['x']}, {pos['y']}, {pos['z']}, nivel {pos['level']})") # # [doc] Informa el avance o la finalización en la consola de Blender.
 
-    # -------- Exportar modelo individual --------
-    bpy.ops.object.select_all(action='DESELECT')
-    obj.select_set(True)
-    bpy.context.view_layer.objects.active = obj
 
-    filepath = os.path.join(export_path, f"{obj.name}.glb")
-    bpy.ops.export_scene.gltf(
-        filepath=filepath,
-        use_selection=True,
-        export_format='GLB',
-        export_apply=False
+    bpy.ops.object.select_all(action='DESELECT') # [doc] Limpia la selección antes de exportar una sola malla.
+    obj.select_set(True) # [doc] Selecciona la malla actual.
+    bpy.context.view_layer.objects.active = obj # [doc] Define la malla activa para el exportador.
+
+    filepath = os.path.join(export_path, f"{obj.name}.glb") # [doc] Construye la ruta del GLB individual.
+    bpy.ops.export_scene.gltf( # [doc] Exporta la selección con el operador glTF de Blender.
+        filepath=filepath, # [doc] Indica el archivo de salida del modelo.
+        use_selection=True, # [doc] Limita la exportación al objeto seleccionado.
+        export_format='GLB', # [doc] Selecciona el contenedor binario GLB.
+        export_apply=False # [doc] Conserva el estado actual de aplicación de modificadores.
     )
 
-# -------- Guardar archivo JSON --------
-with open(json_path, "w") as f:
-    json.dump(positions, f, indent=4)
 
-print("✅ Exportación finalizada con sistema de coordenadas compatible con Three.js.")
+with open(json_path, "w") as f: # [doc] Abre el archivo de posiciones para escritura.
+    json.dump(positions, f, indent=4) # [doc] Serializa todos los registros con sangría legible.
+
+print("✅ Exportación finalizada con sistema de coordenadas compatible con Three.js.") # [ # [doc] Informa el avance o la finalización en la consola de Blender.

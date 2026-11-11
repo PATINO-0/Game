@@ -1,33 +1,31 @@
-export default class LevelManager {
-    constructor(experience) {
-        this.experience = experience;
-        this.currentLevel = 1;  // Inicias en el nivel 1
-        this.totalLevels = 2;   // Total de niveles 
-    }
+/**
+ * Mantiene el nivel actual, las metas de monedas y las solicitudes de transición.
+ */
+export default class LevelManager { // [doc] Define la clase LevelManager.
+  constructor(experience) { // [doc] Inicializa dependencias, estado y elementos necesarios de la instancia.
+    this.experience = experience; // [doc] Asigna experience en this.experience.
+    this.currentLevel = 1; // [doc] Asigna 1 en this.currentLevel.
+    this.totalLevels = 3; // [doc] Asigna 3 en this.totalLevels.
 
-    nextLevel() {
-        if (this.currentLevel < this.totalLevels) {
-            this.currentLevel++;
-    
-            this.experience.world.clearCurrentScene();
-            this.experience.world.loadLevel(this.currentLevel);
-    
-            // Espera breve para que el nivel se cargue y luego reubicar al robot
-            setTimeout(() => {
-                this.experience.world.resetRobotPosition({ x: -17, y: 1.5, z: -67 }) //  Ajusta esta coordenada según el mundo nuevo
-            }, 1000)
-        }
-    }
-    
+    this.pointsToComplete = { // [doc] Asigna el objeto de configuración en this.pointsToComplete.
+      1: 3, // [doc] Configura 1 con 3.
+      2: 5, // [doc] Configura 2 con 5.
+      3: 6, // [doc] Configura 3 con 6.
+    };
+  }
 
-    resetLevel() {
-        this.currentLevel = 1;
-        this.experience.world.loadLevel(this.currentLevel);
+  nextLevel() { // [doc] Solicita cargar el nivel siguiente si todavía existe.
+    if (this.currentLevel < this.totalLevels) { // [doc] Comprueba this.currentLevel < this.totalLevels.
+      return this.experience.world.loadLevel(this.currentLevel + 1); // [doc] Devuelve this.experience.world.loadLevel(this.currentLevel + 1).
     }
+  }
 
+  resetLevel() { // [doc] Solicita volver al primer nivel.
+    this.currentLevel = 1; // [doc] Asigna 1 en this.currentLevel.
+    this.experience.world.loadLevel(this.currentLevel); // [doc] Ejecuta this.experience.world.loadLevel.
+  }
 
-    getCurrentLevelTargetPoints() {
-        return this.pointsToComplete?.[this.currentLevel] || 2;
-    }
-    
+  getCurrentLevelTargetPoints() { // [doc] Devuelve la meta de monedas del nivel actual.
+    return this.pointsToComplete?.[this.currentLevel] ?? 3; // [doc] Devuelve this.pointsToComplete?.[this.currentLevel] ?? 3.
+  }
 }

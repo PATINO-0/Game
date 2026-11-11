@@ -1,17 +1,22 @@
-require('dotenv').config()
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const blockRoutes = require('./routes/blockRoutes')
+/**
+ * Punto de entrada de Express: configura CORS, JSON, rutas, MongoDB y el servidor HTTP con Socket.io.
+ */
+require('dotenv').config() // [doc] Ejecuta require('dotenv').config.
+const express = require('express') // [doc] Guarda require('express') en express.
+const mongoose = require('mongoose') // [doc] Guarda require('mongoose') en mongoose.
+const cors = require('cors') // [doc] Guarda require('cors') en cors.
 
+const blockRoutes = require('./routes/blockRoutes') // [doc] Guarda require('./routes/blockRoutes') en blockRoutes.
+const authRoutes = require('./routes/authRoutes') // [doc] Guarda require('./routes/authRoutes') en authRoutes.
+const profileRoutes = require('./routes/profileRoutes') // [doc] Guarda require('./routes/profileRoutes') en profileRoutes.
 
-const app = express()
-const port = process.env.PORT || 3001
+const app = express() // [doc] Guarda express() en app.
+const port = process.env.PORT || 3001 // [doc] Guarda process.env.PORT || 3001 en port.
 
-app.use(cors())
-app.use(express.json())
+app.use(cors()) // [doc] Ejecuta app.use.
+app.use(express.json()) // [doc] Ejecuta app.use.
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => { // [doc] Ejecuta app.get.
     res.send(`
         <h1>API de bloques</h1>
         <p>Usa la ruta /blocks para interactuar con los bloques.</p>
@@ -19,101 +24,29 @@ app.get('/', (req, res) => {
         `)
 });
 
-// Rutas
-//app.use('/blocks', blockRoutes)
-app.use('/api/blocks', blockRoutes)
+app.use('/api/blocks', blockRoutes) // [doc] Ejecuta app.use.
+app.use('/api/auth', authRoutes) // [doc] Ejecuta app.use.
+app.use('/api/profile', profileRoutes) // [doc] Ejecuta app.use.
 
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        console.log('✅ Conectado a MongoDB')
+mongoose.connect(process.env.MONGO_URI) // [doc] Ejecuta mongoose.connect(process.env.MONGO_URI) .then(() => { console.….
+    .then(() => { // [doc] Define la función que atiende esta operación.
+        console.log('✅ Conectado a MongoDB') // [doc] Escribe un mensaje de registro en la consola.
     })
-    .catch(err => console.error('Error al conectar a MongoDB:', err))
+    .catch(err => console.error('Error al conectar a MongoDB:', err)) // [doc] Define la función que atiende esta operación.
 
-/**
- * Implementacion experiencia multijugador
- */
 
-const http = require('http');
-const socketio = require('socket.io');
+const http = require('http'); // [doc] Guarda require('http') en http.
+const socketio = require('socket.io'); // [doc] Guarda require('socket.io') en socketio.
 
-const server = http.createServer(app); // usamos el mismo `app` existente
-const io = socketio(server, {
-    cors: {
-        origin: '*'
+const server = http.createServer(app); // [doc] Guarda http.createServer(app) en server.
+const io = socketio(server, { // [doc] Guarda socketio(server, { cors: { origin: '*' } }) en io.
+    cors: { // [doc] Configura cors con el objeto de configuración.
+        origin: '*' // [doc] Configura origin con "*".
     }
 });
 
-// Almacén temporal de jugadores
-let players = {}
 
-io.on('connection', (socket) => {
-    console.log(`🟢 Usuario conectado: ${socket.id}`)
-
-    socket.on('new-player', (data) => {
-        console.log(`👤 Jugador inicializado: ${socket.id}`, data)
-
-        players[socket.id] = {
-            id: socket.id,
-            position: data.position || { x: 0, y: 0, z: 0 },
-            rotation: data.rotation || 0,
-            color: data.color || '#ffffff'
-        }
-
-        // Notificar a los demás jugadores
-        socket.broadcast.emit('spawn-player', {
-            id: socket.id,
-            position: players[socket.id].position,
-            rotation: players[socket.id].rotation,
-            color: players[socket.id].color
-        })
-
-        // Enviar al nuevo jugador la lista de jugadores ya conectados
-        socket.emit('players-update', players)
-
-        // Enviar al nuevo jugador los que ya estaban conectados
-        const others = Object.entries(players)
-            .filter(([id]) => id !== socket.id)
-            .map(([id, info]) => ({
-                id,
-                position: info.position,
-                rotation: info.rotation,
-                color: info.color
-            }))
-
-        socket.emit('existing-players', others)
-
-    })
-
-    socket.on('update-position', ({ position, rotation }) => {
-        if (players[socket.id]) {
-            players[socket.id].position = position
-            players[socket.id].rotation = rotation
-            socket.broadcast.emit('update-player', {
-                id: socket.id,
-                position,
-                rotation
-            })
-        }
-    })
-
-    socket.on('disconnect', () => {
-        console.log(`🔴 Usuario desconectado: ${socket.id}`)
-      
-        delete players[socket.id]
-      
-        // 🧼 Notificar a todos para eliminar al jugador desconectado
-        io.emit('remove-player', socket.id)
-      
-        // 🟡 Opcional: actualizar la lista completa
-        io.emit('players-update', players)
-      })
-      
-})
-
-
-// Escucha en el puerto como siempre
-const PORT = process.env.PORT || 3001;
-server.listen(PORT, () => {
+const PORT = process.env.PORT || 3001; // [doc] Guarda process.env.PORT || 3001 en PORT.
+server.listen(PORT, () => { // [doc] Ejecuta server.listen.
     console.log(`✅ Servidor corriendo en puerto ${PORT}`);
 });
-

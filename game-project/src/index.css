@@ -1,69 +1,69 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Estilos de ejemplo de Vite; main.jsx no importa actualmente este archivo. */
+:root { /* Aplica estilos a :root. */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; /* Define font-family como system-ui, Avenir, Helvetica, Arial, sans-serif. */
+  line-height: 1.5; /* Define line-height como 1.5. */
+  font-weight: 400; /* Define font-weight como 400. */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light dark; /* Define color-scheme como light dark. */
+  color: rgba(255, 255, 255, 0.87); /* Define color como rgba(255, 255, 255, 0.87). */
+  background-color: #242424; /* Define background-color como #242424. */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none; /* Define font-synthesis como none. */
+  text-rendering: optimizeLegibility; /* Define text-rendering como optimizeLegibility. */
+  -webkit-font-smoothing: antialiased; /* Define -webkit-font-smoothing como antialiased. */
+  -moz-osx-font-smoothing: grayscale; /* Define -moz-osx-font-smoothing como grayscale. */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+a { /* Aplica estilos a a. */
+  font-weight: 500; /* Define font-weight como 500. */
+  color: #646cff; /* Define color como #646cff. */
+  text-decoration: inherit; /* Define text-decoration como inherit. */
 }
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+a:hover { /* Aplica estilos a a:hover. */
+  color: #535bf2; /* Define color como #535bf2. */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+body { /* Aplica estilos a body. */
+  margin: 0; /* Define margin como 0. */
+  display: flex; /* Define display como flex. */
+  place-items: center; /* Define place-items como center. */
+  min-width: 320px; /* Define min-width como 320px. */
+  min-height: 100vh; /* Define min-height como 100vh. */
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+h1 { /* Aplica estilos a h1. */
+  font-size: 3.2em; /* Define font-size como 3.2em. */
+  line-height: 1.1; /* Define line-height como 1.1. */
 }
-button:hover {
-  border-color: #646cff;
+
+button { /* Aplica estilos a button. */
+  border-radius: 8px; /* Define border-radius como 8px. */
+  border: 1px solid transparent; /* Define border como 1px solid transparent. */
+  padding: 0.6em 1.2em; /* Define padding como 0.6em 1.2em. */
+  font-size: 1em; /* Define font-size como 1em. */
+  font-weight: 500; /* Define font-weight como 500. */
+  font-family: inherit; /* Define font-family como inherit. */
+  background-color: #1a1a1a; /* Define background-color como #1a1a1a. */
+  cursor: pointer; /* Define cursor como pointer. */
+  transition: border-color 0.25s; /* Define transition como border-color 0.25s. */
+}
+button:hover { /* Aplica estilos a button:hover. */
+  border-color: #646cff; /* Define border-color como #646cff. */
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto -webkit-focus-ring-color; /* Define outline como 4px auto -webkit-focus-ring-color. */
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+  :root { /* Aplica estilos a :root. */
+    color: #213547; /* Define color como #213547. */
+    background-color: #ffffff; /* Define background-color como #ffffff. */
   }
-  a:hover {
-    color: #747bff;
+  a:hover { /* Aplica estilos a a:hover. */
+    color: #747bff; /* Define color como #747bff. */
   }
-  button {
-    background-color: #f9f9f9;
+  button { /* Aplica estilos a button. */
+    background-color: #f9f9f9; /* Define background-color como #f9f9f9. */
   }
 }
-
